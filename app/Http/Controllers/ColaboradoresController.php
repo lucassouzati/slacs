@@ -63,6 +63,7 @@ class ColaboradoresController extends Controller
             ]);
 
         $requestData = $request->all();
+        array_set($requestData, 'password', bcrypt($requestData['password']));
         
         Colaborador::create($requestData);
 
@@ -144,5 +145,19 @@ class ColaboradoresController extends Controller
         ]);
 
         return redirect('colaboradores');
+    }
+
+    public function mudaStatus($id, $ativo)
+    {
+        $colaborador = Colaborador::find($id);
+        $colaborador->ativo = $ativo;
+        $colaborador->update();
+
+        \Session::flash('flash_message',[
+            'msg'=> $ativo ? "Colaborador ativado com sucesso!" : "Colaborador desativado com sucesso!",
+            'class'=>"alert-success"
+        ]);
+
+        return redirect("colaboradores");
     }
 }

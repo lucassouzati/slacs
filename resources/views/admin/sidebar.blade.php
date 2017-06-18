@@ -7,8 +7,13 @@
         <div class="panel-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
-                    <a href="{{ url('/admin') }}">
+                    <a href="{{ url('/home') }}">
                         Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('colaboradores.index') }}">
+                        Colaboradores
                     </a>
                 </li>
             </ul>

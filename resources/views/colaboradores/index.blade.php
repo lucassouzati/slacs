@@ -30,7 +30,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Nome</th><th>Cidade</th><th>Email</th><th>Actions</th>
+                                        <th>ID</th><th>Nome</th><th>Cidade</th><th>Email</th><th>Ativo</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,6 +38,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->nome }}</td><td>{{ $item->cidade }}</td><td>{{ $item->email }}</td>
+                                        <td>{{$item->ativo? "Sim" : "Não"}}</td>
                                         <td>
                                             <a href="{{ url('/colaboradores/' . $item->id) }}" title="Visualizar Colaboradore"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Visualizar</button></a>
                                             <a href="{{ url('/colaboradores/' . $item->id . '/edit') }}" title="Editar Colaboradore"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
@@ -53,6 +54,11 @@
                                                         'onclick'=>'return confirm("Confirma exclusão?")'
                                                 )) !!}
                                             {!! Form::close() !!}
+                                            @if($item->ativo)
+                                            <a href="{{route('colaboradores.mudaStatus', ['id' => $item->id, 'ativo' => 0])}}" title="Desativar" class="btn btn-warning btn-xs" onclick="return confirm('Deseja desativar o colaborador?')">Desativar</a>
+                                            @else
+                                            <a href="{{route('colaboradores.mudaStatus', ['id' => $item->id, 'ativo' => 1])}}" title="Ativar" class="btn btn-success btn-xs" onclick="return confirm('Deseja ativar o colaborador?')">Ativar</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
