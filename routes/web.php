@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 
 Route::resource('colaboradores', 'ColaboradoresController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

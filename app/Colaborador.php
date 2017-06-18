@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Colaborador extends Model
+class Colaborador extends Authenticatable
 {
+    use Notifiable;
     /**
      * The database table used by the model.
      *
@@ -27,5 +29,13 @@ class Colaborador extends Model
      */
     protected $fillable = ['nome', 'cidade', 'email', 'password', 'aprovacao_cadastro', 'ativo', 'isAdmin'];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
     
 }

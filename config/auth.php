@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'colaboradores',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'colaboradores',
         ],
 
         'api' => [
@@ -69,6 +69,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        'colaboradores' => [
+            'driver' => 'eloquent',
+            'model' => App\Colaborador::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -93,7 +97,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'colaboradores',
             'table' => 'password_resets',
             'expire' => 60,
         ],
