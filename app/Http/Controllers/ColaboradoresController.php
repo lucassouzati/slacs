@@ -56,16 +56,23 @@ class ColaboradoresController extends Controller
     public function store(Request $request)
     {
         
+        $this->validate($request, [
+            'nome' => 'required|max:255',
+            'email' => 'email|max:255|unique:colaboradores',
+            'password' => 'required|min:4|confirmed',
+            ]);
+
         $requestData = $request->all();
         
         Colaborador::create($requestData);
 
         \Session::flash('flash_message',[
-            'msg'=>"Colaborador cadastrado com sucesso!",
+            'msg'=>"Solicitação de cadastrado efetuada com sucesso! Aguarde a aprovação.",
             'class'=>"alert-success"
         ]);
 
-        return redirect('colaboradores');
+        //return redirect('colaboradores');
+        return redirect('login');
     }
 
     /**

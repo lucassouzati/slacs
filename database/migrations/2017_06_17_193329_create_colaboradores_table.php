@@ -19,7 +19,7 @@ class CreateColaboradoresTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('aprovacao_cadastro')->default(0);
-            $table->boolean('ativo');
+            $table->boolean('ativo')->default(1);
             $table->boolean('isAdmin')->default(0);
             $table->rememberToken();
             $table->timestamps();
