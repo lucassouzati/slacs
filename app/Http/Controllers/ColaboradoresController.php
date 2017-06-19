@@ -64,6 +64,7 @@ class ColaboradoresController extends Controller
 
         $requestData = $request->all();
         array_set($requestData, 'password', bcrypt($requestData['password']));
+        $requestData = array_add($requestData, 'aprovacao_cadastro', 'Pendente');
         
         Colaborador::create($requestData);
 
@@ -155,6 +156,20 @@ class ColaboradoresController extends Controller
 
         \Session::flash('flash_message',[
             'msg'=> $ativo ? "Colaborador ativado com sucesso!" : "Colaborador desativado com sucesso!",
+            'class'=>"alert-success"
+        ]);
+
+        return redirect("colaboradores");
+    }
+
+    public function aprovacaoCadastro($id, $aprovacao_cadastro)
+    {
+        $colaborador = Colaborador::find($id);
+        $colaborador->aprovacao_cadastro = $aprovacao_cadastro;
+        $colaborador->update();
+
+        \Session::flash('flash_message',[
+            'msg'=> $aprovacao_cadastro ? "Colaborador ativado com sucesso!" : "Colaborador desativado com sucesso!",
             'class'=>"alert-success"
         ]);
 

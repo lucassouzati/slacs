@@ -17,7 +17,7 @@ class ColaboradoresTableSeeder extends Seeder
         	'cidade' => 'Itaperuna',
         	'email' => 'lucassouza.ti@gmail.com',
         	'password'=> bcrypt('1234'),
-        	'aprovacao_cadastro' => 1,
+        	'aprovacao_cadastro' => 'Aprovado',
         	'ativo' => 1,
         	'isAdmin' => 1]
         ]);

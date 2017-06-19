@@ -18,7 +18,7 @@ class CreateColaboradoresTable extends Migration
             $table->string('cidade')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('aprovacao_cadastro')->default(0);
+            $table->enum('aprovacao_cadastro', ['Aprovado', 'Reprovado', 'Pendente'])->deafult('Pendente');
             $table->boolean('ativo')->default(1);
             $table->boolean('isAdmin')->default(0);
             $table->rememberToken();
