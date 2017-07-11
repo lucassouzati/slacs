@@ -25,3 +25,5 @@ Route::get('colaboradores/{id}/aprovacaodocadastro/{aprovacao_cadastro}', 'Colab
 
 
 
+
+Route::resource('entes', 'EntesController');

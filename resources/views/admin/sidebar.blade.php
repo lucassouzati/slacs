@@ -16,6 +16,11 @@
                         Colaboradores
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('entes.index') }}">
+                        Entes Públicos
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
