@@ -21,6 +21,11 @@
                         Entes Públicos
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('licitacoes.index') }}">
+                        Licitações
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
