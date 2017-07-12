@@ -28,9 +28,13 @@ class CreateLicitacoesTable extends Migration
             $table->integer('ente_id')->unsigned();
             $table->enum('tipo_cadastro', ['Manual', 'Automático']);
             $table->enum('situacao_cadastro', ['Não validado', 'Validado', 'Reprovado', 'Contestado']);
-            $table->integer('user_criou_id')->unsigned();
-            $table->integer('user_validou_id')->unsigned()->nullable();
+            $table->integer('colaborador_criou_id')->unsigned();
+            $table->integer('colaborador_validou_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('ente_id')->references('id')->on('entes')->onDelete('cascade');
+            $table->foreign('colaborador_criou_id')->references('id')->on('colaboradores')->onDelete('cascade');
+            $table->foreign('colaborador_validou_id')->references('id')->on('colaboradores')->onDelete('cascade');
         });
     }
 

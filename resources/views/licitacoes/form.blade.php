@@ -5,7 +5,7 @@
         {!! $errors->first('unidade_gestora', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('num_proc') ? 'has-error' : ''}}">
-    {!! Form::label('num_proc', 'Num Proc', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('num_proc', 'Número do processo', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::text('num_proc', null, ['class' => 'form-control','required' => 'required']) !!}
         {!! $errors->first('num_proc', '<p class="help-block">:message</p>') !!}
@@ -23,21 +23,21 @@
         {!! $errors->first('tipo', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('situacao') ? 'has-error' : ''}}">
-    {!! Form::label('situacao', 'Situacao', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('situacao', 'Situação da licitação', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::text('situacao', null, ['class' => 'form-control','required' => 'required']) !!}
         {!! $errors->first('situacao', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('data_julgamento') ? 'has-error' : ''}}">
-    {!! Form::label('data_julgamento', 'Data Julgamento', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('data_julgamento', 'Data de julgamento', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('data_julgamento', null, ['class' => 'form-control']) !!}
+        {!! Form::text('data_julgamento', null, ['class' => 'data form-control']) !!}
         {!! $errors->first('data_julgamento', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('data_homologacao') ? 'has-error' : ''}}">
-    {!! Form::label('data_homologacao', 'Data Homologacao', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('data_homologacao', 'Data da homologação', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('data_homologacao', null, ['class' => 'form-control']) !!}
+        {!! Form::text('data_homologacao', null, ['class' => 'data form-control']) !!}
         {!! $errors->first('data_homologacao', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('objeto') ? 'has-error' : ''}}">
@@ -49,7 +49,7 @@
 </div><div class="form-group {{ $errors->has('valor') ? 'has-error' : ''}}">
     {!! Form::label('valor', 'Valor', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::number('valor', null, ['class' => 'form-control']) !!}
+        {!! Form::text('valor', null, ['class' => 'real form-control']) !!}
         {!! $errors->first('valor', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('criterio') ? 'has-error' : ''}}">
@@ -67,7 +67,7 @@
 </div><div class="form-group {{ $errors->has('ente_id') ? 'has-error' : ''}}">
     {!! Form::label('ente_id', 'Ente Id', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::number('ente_id', null, ['class' => 'form-control']) !!}
+        {!! Form::select('ente_id', $entes->pluck('nome', 'id')->prepend("", ""), null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('ente_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

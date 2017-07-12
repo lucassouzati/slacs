@@ -33,7 +33,15 @@
                                     <tr>
                                         <th>ID</th><td>{{ $ente->id }}</td>
                                     </tr>
-                                    <tr><th> Nome </th><td> {{ $ente->nome }} </td></tr><tr><th> Municipio </th><td> {{ $ente->municipio }} </td></tr><tr><th> Link Transparencia </th><td> {{ $ente->link_transparencia }} </td></tr>
+                                    <tr><th> Nome </th><td> {{ $ente->nome }} </td></tr>
+                                    <tr><th> Municipio </th><td> {{ $ente->municipio }} </td></tr>
+                                    <tr><th> Link da Transparencia </th><td> {{ $ente->link_transparencia }} </td></tr>
+                                    <tr><th> Link das Licitações </th><td> {{ $ente->link_licitacoes }} </td></tr>
+                                    <tr><th> Link dos Contratos </th><td> {{ $ente->link_contratos }} </td></tr>
+                                    <tr><th> Esfera </th><td> {{ $ente->esfera }} </td></tr>
+                                    <tr><th> Classificacao </th><td> {{ $ente->classificacao }} </td></tr>
+                                    <tr><th> Status </th><td> {{ $ente->ativo? "Ativo" : "Inativo" }} </td></tr>
+
                                 </tbody>
                             </table>
                         </div>

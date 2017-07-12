@@ -33,7 +33,23 @@
                                     <tr>
                                         <th>ID</th><td>{{ $licitaco->id }}</td>
                                     </tr>
-                                    <tr><th> Unidade Gestora </th><td> {{ $licitaco->unidade_gestora }} </td></tr><tr><th> Num Proc </th><td> {{ $licitaco->num_proc }} </td></tr><tr><th> Modalidade </th><td> {{ $licitaco->modalidade }} </td></tr>
+                                    <tr><th> Ente Público </th><td> {{ $licitaco->ente->nome }} </td></tr>
+                                    <tr><th> Unidade Gestora </th><td> {{ $licitaco->unidade_gestora }} </td></tr>
+                                    <tr><th> Número de processo </th><td> {{ $licitaco->num_proc }} </td></tr>
+                                    <tr><th> Modalidade </th><td> {{ $licitaco->modalidade }} </td></tr>
+                                    <tr><th> Tipo </th><td> {{ $licitaco->modalidade }} </td></tr>
+                                    <tr><th> Situação </th><td> {{ $licitaco->situacao }} </td></tr>
+                                    <tr><th> Data de julgamento </th><td> {{ $licitaco->data_julgamento }} </td></tr>
+                                    <tr><th> Data de homologação </th><td> {{ $licitaco->data_homologacao }} </td></tr>
+                                    <tr><th> Objeto </th><td> {{ $licitaco->objeto }} </td></tr>
+                                    <tr><th> Valor </th><td> {{ $licitaco->valor }} </td></tr>
+                                    <tr><th> Critério </th><td> {{ $licitaco->criterio }} </td></tr>
+                                    <tr><th> Prazo de execução </th><td> {{ $licitaco->prazo_execucao }} </td></tr>
+                                    <tr><th> Tipo de cadastro </th><td> {{ $licitaco->tipo_cadastro }} </td></tr>
+                                    <tr><th> Situação do cadastro </th><td> {{ $licitaco->situacao_cadastro }} </td></tr>
+                                    <tr><th> Criado por </th><td> {{ $licitaco->colaborador_criou->nome }} </td></tr>
+                                    <tr><th> Validado por </th><td> {{ isset($licitacao->colaborador_validou) ? $licitaco->colaborador_validou->nome : "" }} </td></tr>
+
                                 </tbody>
                             </table>
                         </div>

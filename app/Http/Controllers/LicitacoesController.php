@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Licitacao;
+use App\Ente;
 use Illuminate\Http\Request;
 use Session;
 
@@ -51,7 +52,9 @@ class LicitacoesController extends Controller
      */
     public function create()
     {
-        return view('licitacoes.create');
+        $entes = Ente::all();
+        // dd($entes);
+        return view('licitacoes.create', compact('entes'));
     }
 
     /**
@@ -63,9 +66,21 @@ class LicitacoesController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+        $this->validate($request, [
+            'unidade_gestora' => 'required', 
+            'num_proc' => 'required', 
+            'modalidade' => 'required', 
+            'tipo' => 'required', 
+            'data_julgamento' => 'date_format:d/m/Y', 
+            'data_homologacao' => 'date_format:d/m/Y', 
+            //'objeto' => '',
+            'prazo_execucao' => 'required', 
+            'ente_id' => 'required', 
+            ]);
         
         $requestData = $request->all();
-        $requestData = array_add($requestData, "user_criou_id", auth()->user()->id);
+        $requestData = array_add($requestData, "colaborador_criou_id", auth()->user()->id);
         
         Licitacao::create($requestData);
 
@@ -101,8 +116,9 @@ class LicitacoesController extends Controller
     public function edit($id)
     {
         $licitaco = Licitacao::findOrFail($id);
+        $entes = Ente::all();
 
-        return view('licitacoes.edit', compact('licitaco'));
+        return view('licitacoes.edit', compact('licitaco', 'entes'));
     }
 
     /**

@@ -11,7 +11,27 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    {{-- <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" /> --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css') }}" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+    
+    <!-- InputMask -->
+    <script src="{{asset('js/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('js/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{asset('js/input-mask/jquery.inputmask.extensions.js')}}"></script>
+
+    <!-- Maskmoney -->
+    <script src="{{asset('/plugins/jquery-maskmoney/jquery.maskMoney.min.js')}}"></script>
+    
+    {{-- <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script> --}}
+    <script src="{{asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('plugins/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/mascaras.js')}}"></script>    
+
 </head>
 <body>
     <div id="app">
@@ -84,7 +104,6 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>
