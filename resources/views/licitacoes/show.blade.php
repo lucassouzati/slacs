@@ -58,5 +58,54 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+             <div class="col-md-9 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Itemlicitacao</div>
+                    <div class="panel-body">
+                        <a href="{{ route('item-licitacao.create', $licitaco->id) }}" class="btn btn-success btn-sm" title="Cadastrar ItemLicitacao">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
+                        </a>
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th><th>Item</th><th>Descricao</th><th>Quantidade</th><th>Unidade Medida</th><th>Valor Unitario</th><th>Valor Proposta Vencedora</th><th>Valor Total</th><th>Licitacao Id</th><th>Tipo Pessoa Fisica</th><th>Cnpj Cpf Vencedor</th><th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($licitaco->itensLicitacao as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->item }}</td><td>{{ $item->descricao }}</td><td>{{ $item->quantidade }}</td><td>{{ $item->unidade_medida }}</td><td>{{ $item->valor_unitario }}</td><td>{{ $item->valor_proposta_vencedora }}</td><td>{{ $item->valor_total }}</td><td>{{ $item->licitacao_id }}</td><td>{{ $item->tipo_pessoa_fisica }}</td><td>{{ $item->cnpj_cpf_vencedor }}</td>
+                                        <td>
+                                            <a href="{{ route('item-licitacao.show', ['licitacao_id' => $licitaco->id, 'id' => $item->id]) }}" title="Visualizar ItemLicitacao"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Visualizar</button></a>
+                                            <a href="{{ route('item-licitacao.edit', ['licitacao_id' => $licitaco->id, 'id' => $item->id]) }}" title="Editar ItemLicitacao"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
+                                            {!! Form::open([
+                                                'method'=>'DELETE',
+                                                'url' => route('item-licitacao.destroy', ['licitacao_id' => $licitaco->id, 'id' => $item->id]),
+                                                'style' => 'display:inline'
+                                            ]) !!}
+                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Excluir', array(
+                                                        'type' => 'submit',
+                                                        'class' => 'btn btn-danger btn-xs',
+                                                        'title' => 'Excluir ItemLicitacao',
+                                                        'onclick'=>'return confirm("Confirma exclusão?")'
+                                                )) !!}
+                                            {!! Form::close() !!}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

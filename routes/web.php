@@ -28,3 +28,7 @@ Route::get('colaboradores/{id}/aprovacaodocadastro/{aprovacao_cadastro}', 'Colab
 
 Route::resource('entes', 'EntesController');
 Route::resource('licitacoes', 'LicitacoesController');
+Route::group(['prefix' => 'licitacoes/{licitacao_id}'], function(){
+	Route::resource('item-licitacao', 'ItemLicitacaoController');
+
+	});

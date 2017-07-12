@@ -43,6 +43,11 @@ class Licitacao extends Model
         return $this->belongsTo('App\Colaborador', 'colaborador_validou_id');
     }
 
+    public function itensLicitacao()
+    {
+        return $this->hasMany('App\ItemLicitacao');
+    }
+
     public function getDataJulgamentoAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
