@@ -60,5 +60,61 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Itens do contrato {{$contrato->id}}</div>
+                    <div class="panel-body">
+                        <a href="{{ route('item-contrato.create', $contrato->id) }}" class="btn btn-success btn-sm" title="Cadastrar ItemContrato">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
+                        </a>
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Item</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor Unitario</th>
+                                        <th>Valor Total</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($contrato->itensContrato as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->item }}</td>
+                                        <td>{{ $item->quantidade }}</td>
+                                        <td>{{ $item->valor_unitario }}</td>
+                                        <td>{{ $item->valor_total }}</td>
+                                        <td>
+                                            <a href="{{ route('item-contrato.show', ['contrato_id' =>$contrato->id, 'id' => $item->id]) }}" title="Visualizar ItemContrato"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Visualizar</button></a>
+                                            <a href="{{ route('item-contrato.edit', ['contrato_id' =>$contrato->id, 'id' => $item->id]) }}" title="Editar ItemContrato"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
+                                            {!! Form::open([
+                                                'method'=>'DELETE',
+                                                'url' => route('item-contrato.destroy', ['contrato_id' =>$contrato->id, 'id' => $item->id]),
+                                                'style' => 'display:inline'
+                                            ]) !!}
+                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Excluir', array(
+                                                        'type' => 'submit',
+                                                        'class' => 'btn btn-danger btn-xs',
+                                                        'title' => 'Excluir ItemContrato',
+                                                        'onclick'=>'return confirm("Confirma exclusão?")'
+                                                )) !!}
+                                            {!! Form::close() !!}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

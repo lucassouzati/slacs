@@ -43,6 +43,11 @@ class Contrato extends Model
         return $this->belongsTo('App\Colaborador', 'colaborador_validou_id');
     }
 
+    public function itensContrato()
+    {
+        return $this->hasMany('App\ItemContrato');
+    }
+
     public function getDataEmissaoAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');

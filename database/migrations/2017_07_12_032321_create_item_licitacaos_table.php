@@ -21,7 +21,7 @@ class CreateItemLicitacaosTable extends Migration
             $table->double('valor_unitario');
             $table->double('valor_proposta_vencedora');
             $table->double('valor_total')->nullable();
-            $table->integer('licitacao_id');
+            $table->integer('licitacao_id')->unsigned();
             $table->string('tipo_pessoa');
             $table->string('cnpj_vencedor')->nullable();
             $table->string('cpf_vencedor')->nullable();

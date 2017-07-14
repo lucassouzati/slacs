@@ -33,4 +33,9 @@ Route::group(['prefix' => 'licitacoes/{licitacao_id}'], function(){
 
 	});
 
+Route::group(['prefix' => 'contratos/{contrato_id}'], function(){
+	Route::resource('item-contrato', 'ItemContratoController');
+
+	});
+
 Route::resource('contratos', 'ContratosController');
