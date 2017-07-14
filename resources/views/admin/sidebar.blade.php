@@ -26,6 +26,12 @@
                         Licitações
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('contratos.index') }}">
+                        Contratos
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>

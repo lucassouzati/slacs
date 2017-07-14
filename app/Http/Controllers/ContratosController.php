@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Licitacao;
+use App\Contrato;
 use App\Ente;
+use App\Licitacao;
 use Illuminate\Http\Request;
 use Session;
 
-class LicitacoesController extends Controller
+class ContratosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,26 +24,24 @@ class LicitacoesController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $licitacoes = Licitacao::where('unidade_gestora', 'LIKE', "%$keyword%")
-				->orWhere('num_proc', 'LIKE', "%$keyword%")
-				->orWhere('modalidade', 'LIKE', "%$keyword%")
+            $contratos = Contrato::where('unidade_gestora', 'LIKE', "%$keyword%")
+				->orWhere('data_emissao', 'LIKE', "%$keyword%")
+				->orWhere('instrumento_contrato', 'LIKE', "%$keyword%")
+				->orWhere('numero_contrato', 'LIKE', "%$keyword%")
+				->orWhere('data_expiracao', 'LIKE', "%$keyword%")
 				->orWhere('tipo', 'LIKE', "%$keyword%")
-				->orWhere('situacao', 'LIKE', "%$keyword%")
-				->orWhere('data_julgamento', 'LIKE', "%$keyword%")
-				->orWhere('data_homologacao', 'LIKE', "%$keyword%")
-				->orWhere('objeto', 'LIKE', "%$keyword%")
+				->orWhere('fornecedor', 'LIKE', "%$keyword%")
+				->orWhere('cnpj_cpf', 'LIKE', "%$keyword%")
+				->orWhere('teve_aditivo', 'LIKE', "%$keyword%")
+				->orWhere('processo', 'LIKE', "%$keyword%")
 				->orWhere('valor', 'LIKE', "%$keyword%")
-				->orWhere('criterio', 'LIKE', "%$keyword%")
-				->orWhere('prazo_execucao', 'LIKE', "%$keyword%")
-				->orWhere('ente_id', 'LIKE', "%$keyword%")
-				->orWhere('tipo_cadastro', 'LIKE', "%$keyword%")
-				->orWhere('situacao', 'LIKE', "%$keyword%")
+				->orWhere('descricao', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $licitacoes = Licitacao::paginate($perPage);
+            $contratos = Contrato::paginate($perPage);
         }
 
-        return view('licitacoes.index', compact('licitacoes'));
+        return view('contratos.index', compact('contratos'));
     }
 
     /**
@@ -53,8 +52,8 @@ class LicitacoesController extends Controller
     public function create()
     {
         $entes = Ente::all();
-        // dd($entes);
-        return view('licitacoes.create', compact('entes'));
+        $licitacoes = Licitacao::all();
+        return view('contratos.create', compact('entes', 'licitacoes'));
     }
 
     /**
@@ -66,30 +65,29 @@ class LicitacoesController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $this->validate($request, [
-            'unidade_gestora' => 'required', 
-            'num_proc' => 'required', 
-            'modalidade' => 'required', 
-            'tipo' => 'required', 
-            'data_julgamento' => 'date_format:d/m/Y', 
-            'data_homologacao' => 'date_format:d/m/Y', 
+            'processo' => 'required', 
+            'cnpj_cpf' => 'required', 
+            'data_emissao' => 'date_format:d/m/Y', 
+            'data_expiracao' => 'date_format:d/m/Y', 
             //'objeto' => '',
-            'prazo_execucao' => 'required', 
             'ente_id' => 'required', 
-        ]);
+            ]);
         
         $requestData = $request->all();
+        //dd($requestData);
         $requestData = array_add($requestData, "colaborador_criou_id", auth()->user()->id);
+        $requestData = array_add($requestData, "tipo_cadastro", "Manual");
         
-        Licitacao::create($requestData);
+        
+        Contrato::create($requestData);
 
         \Session::flash('flash_message',[
-            'msg'=>"Licitacao cadastrado com sucesso!",
+            'msg'=>"Contrato cadastrado com sucesso!",
             'class'=>"alert-success"
         ]);
 
-        return redirect('licitacoes');
+        return redirect('contratos');
     }
 
     /**
@@ -101,9 +99,9 @@ class LicitacoesController extends Controller
      */
     public function show($id)
     {
-        $licitaco = Licitacao::findOrFail($id);
+        $contrato = Contrato::findOrFail($id);
 
-        return view('licitacoes.show', compact('licitaco'));
+        return view('contratos.show', compact('contrato'));
     }
 
     /**
@@ -115,10 +113,11 @@ class LicitacoesController extends Controller
      */
     public function edit($id)
     {
-        $licitaco = Licitacao::findOrFail($id);
+        $contrato = Contrato::findOrFail($id);
         $entes = Ente::all();
+        $licitacoes = Licitacao::all();
 
-        return view('licitacoes.edit', compact('licitaco', 'entes'));
+        return view('contratos.edit', compact('contrato', 'entes', 'licitacoes'));
     }
 
     /**
@@ -134,15 +133,15 @@ class LicitacoesController extends Controller
         
         $requestData = $request->all();
         
-        $licitaco = Licitacao::findOrFail($id);
-        $licitaco->update($requestData);
+        $contrato = Contrato::findOrFail($id);
+        $contrato->update($requestData);
 
         \Session::flash('flash_message',[
-            'msg'=>"Licitacao atualizado com sucesso!",
+            'msg'=>"Contrato atualizado com sucesso!",
             'class'=>"alert-success"
         ]);
 
-        return redirect('licitacoes');
+        return redirect('contratos');
     }
 
     /**
@@ -154,13 +153,13 @@ class LicitacoesController extends Controller
      */
     public function destroy($id)
     {
-        Licitacao::destroy($id);
+        Contrato::destroy($id);
 
         \Session::flash('flash_message',[
-            'msg'=>"Licitacao excluído com sucesso!",
+            'msg'=>"Contrato excluído com sucesso!",
             'class'=>"alert-success"
         ]);
 
-        return redirect('licitacoes');
+        return redirect('contratos');
     }
 }

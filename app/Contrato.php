@@ -5,14 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Licitacao extends Model
+class Contrato extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'licitacoes';
+    protected $table = 'contratos';
 
     /**
     * The database primary key value.
@@ -26,7 +26,7 @@ class Licitacao extends Model
      *
      * @var array
      */
-    protected $fillable = ['unidade_gestora', 'num_proc', 'modalidade', 'tipo', 'situacao', 'data_julgamento', 'data_homologacao', 'objeto', 'valor', 'criterio', 'prazo_execucao', 'ente_id', 'tipo_cadastro', 'situacao_cadastro', 'colaborador_criou_id', 'colaborador_validou_id'];
+    protected $fillable = ['unidade_gestora', 'data_emissao', 'instrumento_contrato', 'numero_contrato', 'data_expiracao', 'tipo', 'fornecedor', 'cnpj_cpf', 'teve_aditivo', 'processo', 'valor', 'descricao', 'ente_id', 'colaborador_criou_id', 'colaborador_validou_id', 'licitacao_id', 'numero_licitacao'];
 
     public function ente()
     {
@@ -43,33 +43,29 @@ class Licitacao extends Model
         return $this->belongsTo('App\Colaborador', 'colaborador_validou_id');
     }
 
-    public function itensLicitacao()
-    {
-        return $this->hasMany('App\ItemLicitacao');
-    }
-
-    public function getDataJulgamentoAttribute($value)
+    public function getDataEmissaoAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function setDataJulgamentoAttribute($value)
+    public function setDataEmissaoAttribute($value)
     {   
-        $this->attributes['data_julgamento'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        $this->attributes['data_emissao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
-    public function getDataHomologacaoAttribute($value)
+    public function getDataExpiracaoAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function setDataHomologacaoAttribute($value)
+    public function setDataExpiracaoAttribute($value)
     {   
-        $this->attributes['data_homologacao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        $this->attributes['data_expiracao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function setValorAttribute($value)
     {
+
         if(str_contains($value, 'R$')){
             $resultado = str_replace(["R$ ", "."], "", $value);
             $resultado = str_replace([",", ], ".", $resultado);
@@ -86,6 +82,4 @@ class Licitacao extends Model
     {
         return number_format($value, 2, ',', '.');
     }
-
-    
 }
