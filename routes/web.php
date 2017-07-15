@@ -39,3 +39,10 @@ Route::group(['prefix' => 'contratos/{contrato_id}'], function(){
 	});
 
 Route::resource('contratos', 'ContratosController');
+
+// Route::resource('cidadao', 'CidadaoController');
+
+Route::group(['prefix' => 'consulta'], function(){
+	Route::get('licitacoes', 'CidadaoController@consultaLicitacoes')->name('cidadao.consulta-licitacoes');
+	Route::get('contratos', 'CidadaoController@consultaContratos')->name('cidadao.consulta-contratos');
+});
