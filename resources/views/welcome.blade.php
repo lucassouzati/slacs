@@ -1,95 +1,147 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="pt-br">
 
-        <title>Laravel</title>
+<head>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+    <title>SLACS - Serviço Livre de Apoio ao Controle Social</title>
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Custom CSS -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
 
-            .position-ref {
-                position: relative;
-            }
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+</head>
 
-            .content {
-                text-align: center;
-            }
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
 
-            .title {
-                font-size: 84px;
-            }
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">SLACS</a>
+            </div>
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Dados no portal</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">Controle Social</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Quero colaborar</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="pull-right">
+                        <a href="{{route('login')}}" title="login">Acesso de colaborador</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    SLACS - Serviço Livre de Apoio ao Controle Social
-                </div>
-
-                <div class="links">
-                    <a href="{{url('/login')}}">Acesso de colaborador </a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="nome_slacs">S L A C S</h1>
+                    <p class="subtitulo">Serviço Livre de Apoio ao Controle Social</p>
+                  {{--   <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a> --}}
                 </div>
             </div>
         </div>
-    </body>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="topicos">Dados no portal</h1>
+                    <div class="col-lg-4">
+                        <h2 class="topicos">Entes fiscalizados</h2>
+                    </div>
+                    <div class="col-lg-4">
+                        <h2 class="topicos">Itens</h2>
+                    </div>
+                    <div class="col-lg-4">
+                        <h2 class="topicos">Monitoramentos</h2>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="topicos">Controle Social</h1>
+                    <p class="textos"> Apesar do Brasil possuir uma legislação robusta referente a transparência pública, muitos órgãos não cumprem essas leis, principalmente os da esfera municipal. A fiscalização de órgãos competentes não garantiu que os entes públicos fiscalizados mantivessem seus sites institucionais atualizados com informações obrigatórias. Tal fato somado com a inércia do brasileiro perante aos descaso de seus governantes, indica a necessidade de iniciativas alternativas de fiscalizações. </p>
+                    <p class="textos">Nesse cenário, surge o SLACS, ferramenta que visa suprir a carência de dados abertos referentes a entes públicos municipais e difundir a cultura de Controle Social local com a disponibilização em formato aberto e pradronizado, dados referente a entes públicos municipais .</p>
+                    {{-- A cada dia que se passa, o brasileiro presencia tantos casos de corrupção envolvendo seus governantes, chegando ao ponto de muitos se acomodarem. A acomodação destes nos incomoda. Enquanto a maioria acompanha pela mídia escândos na capital do país, se esquecem que nas portas de sua casa também tem dinheiro público sendo desviado. --}}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="topicos">Quero colaborar</h1>
+                    <p class="textos">Vocẽ pode colaborar de diversas formas. Entre em contato com o e-mail lucassouza.ti@gmail.com para maiores informações.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+</body>
+
 </html>
