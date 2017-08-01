@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/cidadaos/home';
+    protected $redirectTo = '/cidadao/home';
 
     /**
      * Create a new controller instance.
@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('cidadao');
+        return \Auth::guard('cidadao');
     }
 
     /**
@@ -73,7 +73,7 @@ class LoginController extends Controller
         $dados = $request->all();
         if (\Auth::guard('cidadao')->attempt(['email' => $dados['email'], 'password' => $dados['password']])) {
             // Authentication passed...
-            return redirect()->route('cidadaos.show', \Auth::guard('cidadao')->user()->id);
+            return redirect()->route('cidadao.home');
         }else{
             return back()->withErrors(['email' => 'Login ou senha inválidos!']);
         }
