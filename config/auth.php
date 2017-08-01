@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'colaboradores',
         ],
+        'cidadao' => [
+            'driver' => 'session',
+            'provider' => 'cidadaos',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -73,6 +77,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Colaborador::class,
         ],
+        'cidadaos' => [
+            'driver' => 'eloquent',
+            'model' => App\Cidadao::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -101,6 +109,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'cidadaos' => [
+            'provider' => 'cidadaos',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
     ],
 
 ];

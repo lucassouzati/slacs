@@ -44,9 +44,25 @@ Route::get('contratos/importar', 'ContratosController@formImportar')->name('cont
 Route::post('contratos/importar', 'ContratosController@importar')->name('contratos.importar');
 Route::resource('contratos', 'ContratosController');
 
-// Route::resource('cidadao', 'CidadaoController');
+
 
 Route::group(['prefix' => 'consulta'], function(){
 	Route::get('licitacoes', 'CidadaoController@consultaLicitacoes')->name('cidadao.consulta-licitacoes');
 	Route::get('contratos', 'CidadaoController@consultaContratos')->name('cidadao.consulta-contratos');
 });
+
+// Route::get('cidadao/login', 'CidadaoController@formLogin')->name('cidadao.formLogin');
+Route::group(['namespace' => 'Cidadao', 'prefix' => 'cidadao'], function () {
+    Route::get('/', 'Auth\LoginController@showLoginForm');
+    Route::get('/login', 'Auth\LoginController@showLoginForm');
+    Route::post('login', 'Auth\LoginController@login')->name('cidadao.login');
+    Route::post('logout', 'Auth\LoginController@logout')->name('cidadao.logout');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('cidadao.formRegister');
+    Route::post('register', 'Auth\RegisterController@register')->name('cidadao.register');
+    Route::get('home', 'HomeController@index')->name('cidadao.home');
+});
+
+Route::resource('cidadao', 'CidadaoController');

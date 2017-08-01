@@ -72,7 +72,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="pull-right">
-                        <a href="{{route('login')}}" title="login">Acesso de colaborador</a>
+                        <a href="{{route('login')}}" title="login">Acesso de Colaborador</a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="{{url('cidadao/login')}}" title="login">Acesso de Cidadão</a>
                     </li>
                 </ul>
             </div>

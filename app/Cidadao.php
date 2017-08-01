@@ -2,10 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Cidadao extends Model
+
+class Cidadao extends Authenticatable
 {
+    use Notifiable;
     /**
      * The database table used by the model.
      *
@@ -27,5 +30,7 @@ class Cidadao extends Model
      */
     protected $fillable = ['nome', 'email', 'password', 'cidade'];
 
-    
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

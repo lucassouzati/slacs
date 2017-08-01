@@ -18,8 +18,9 @@ class CreateCidadaosTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('cidade');
-            $table->boolean('ativo')->defautl(1);
+            $table->boolean('ativo')->default(1);
             $table->boolean('email_confirmado')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
