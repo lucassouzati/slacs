@@ -15,22 +15,22 @@ class CreateContratosTable extends Migration
         Schema::create('contratos', function(Blueprint $table) {
             $table->increments('id');
             $table->string('unidade_gestora')->nullable();
-            $table->date('data_emissao');
-            $table->date('data_expiracao');
+            $table->date('data_emissao')->nullable();
+            $table->date('data_expiracao')->nullable();
             $table->string('instrumento_contrato')->nullable();
             $table->string('numero_contrato')->nullable();
             $table->string('tipo')->nullable();
-            $table->string('cnpj_cpf');
+            $table->string('cnpj_cpf')->nullable();
             $table->string('fornecedor')->nullable();
             $table->string('processo')->nullable();
             $table->boolean('teve_aditivo')->default(0);
-            $table->double('valor');
+            $table->double('valor')->nullable();
             $table->text('descricao')->nullable();
             $table->integer('ente_id')->unsigned();
             $table->integer('colaborador_criou_id')->unsigned();
             $table->integer('colaborador_validou_id')->unsigned()->nullable();
             $table->integer('licitacao_id')->unsigned()->nullable();
-            $table->enum('tipo_cadastro', ['Manual', 'Automático']);
+            $table->enum('tipo_cadastro', ['Manual', 'Automático', 'Importado']);
 
             $table->string('numero_licitacao')->nullable();
             $table->timestamps();

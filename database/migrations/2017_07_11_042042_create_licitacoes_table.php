@@ -26,7 +26,7 @@ class CreateLicitacoesTable extends Migration
             $table->string('criterio')->nullable();
             $table->string('prazo_execucao')->nullable();
             $table->integer('ente_id')->unsigned();
-            $table->enum('tipo_cadastro', ['Manual', 'Automático']);
+            $table->enum('tipo_cadastro', ['Manual', 'Automático', 'Importado']);
             $table->enum('situacao_cadastro', ['Não validado', 'Validado', 'Reprovado', 'Contestado']);
             $table->integer('colaborador_criou_id')->unsigned();
             $table->integer('colaborador_validou_id')->unsigned()->nullable();

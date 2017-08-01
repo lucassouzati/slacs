@@ -55,7 +55,9 @@ class Licitacao extends Model
 
     public function setDataJulgamentoAttribute($value)
     {   
-        $this->attributes['data_julgamento'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        // dd($value);
+        if(!is_array($value) && isset($value) && $value != "" && $value != " ")
+            $this->attributes['data_julgamento'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function getDataHomologacaoAttribute($value)
@@ -65,7 +67,8 @@ class Licitacao extends Model
 
     public function setDataHomologacaoAttribute($value)
     {   
-        $this->attributes['data_homologacao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        if(!is_array($value) && isset($value) && $value != '')
+            $this->attributes['data_homologacao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function setValorAttribute($value)

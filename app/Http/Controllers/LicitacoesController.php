@@ -9,6 +9,7 @@ use App\Licitacao;
 use App\Ente;
 use Illuminate\Http\Request;
 use Session;
+use \XmlParser;
 
 class LicitacoesController extends Controller
 {

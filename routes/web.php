@@ -33,11 +33,15 @@ Route::group(['prefix' => 'licitacoes/{licitacao_id}'], function(){
 
 	});
 
+
+
 Route::group(['prefix' => 'contratos/{contrato_id}'], function(){
 	Route::resource('item-contrato', 'ItemContratoController');
 
-	});
+});
 
+Route::get('contratos/importar', 'ContratosController@formImportar')->name('contratos.formImportar');
+Route::post('contratos/importar', 'ContratosController@importar')->name('contratos.importar');
 Route::resource('contratos', 'ContratosController');
 
 // Route::resource('cidadao', 'CidadaoController');

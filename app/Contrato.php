@@ -26,7 +26,7 @@ class Contrato extends Model
      *
      * @var array
      */
-    protected $fillable = ['unidade_gestora', 'data_emissao', 'instrumento_contrato', 'numero_contrato', 'data_expiracao', 'tipo', 'fornecedor', 'cnpj_cpf', 'teve_aditivo', 'processo', 'valor', 'descricao', 'ente_id', 'colaborador_criou_id', 'colaborador_validou_id', 'licitacao_id', 'numero_licitacao'];
+    protected $fillable = ['unidade_gestora', 'data_emissao', 'instrumento_contrato', 'numero_contrato', 'data_expiracao', 'tipo', 'fornecedor', 'cnpj_cpf', 'teve_aditivo', 'processo', 'valor', 'descricao', 'ente_id', 'colaborador_criou_id', 'colaborador_validou_id', 'licitacao_id', 'numero_licitacao', 'tipo_cadastro'];
 
     public function ente()
     {
@@ -55,7 +55,8 @@ class Contrato extends Model
 
     public function setDataEmissaoAttribute($value)
     {   
-        $this->attributes['data_emissao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        if(!is_array($value) && isset($value) && $value != '')
+            $this->attributes['data_emissao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function getDataExpiracaoAttribute($value)
@@ -65,7 +66,8 @@ class Contrato extends Model
 
     public function setDataExpiracaoAttribute($value)
     {   
-        $this->attributes['data_expiracao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        if(!is_array($value) && isset($value) && $value != '')
+            $this->attributes['data_expiracao'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function setValorAttribute($value)
@@ -76,6 +78,8 @@ class Contrato extends Model
             $resultado = str_replace([",", ], ".", $resultado);
             $this->attributes['valor'] = $resultado;
         }
+        else if ($value == '')
+            $this->attributes['valor'] = null;
         else{
             $resultado = str_replace([",", ], ".", $value);
             $this->attributes['valor'] = $resultado;

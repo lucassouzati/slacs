@@ -10,6 +10,7 @@ use App\Ente;
 use App\Licitacao;
 use Illuminate\Http\Request;
 use Session;
+use \XmlParser; 
 
 class ContratosController extends Controller
 {
@@ -161,5 +162,95 @@ class ContratosController extends Controller
         ]);
 
         return redirect('contratos');
+    }
+
+    public function formImportar()
+    {
+        $entes = Ente::all();
+        return view('contratos.importacao', compact('entes'));
+    }
+
+    public function importar(Request $request)
+    {
+        $requestData = $request->all();
+        // dd($requestData);
+        if($requestData['formato'] == 'XML')
+        {
+            // $xml = XmlParser::load($requestData['arquivo']);
+            $data = file_get_contents($requestData['arquivo']);
+            $xml = simplexml_load_string($data);
+            // dd($xml);
+            // $registros = $xml->getContent();
+            // dd($xml);
+            $licitacoes = [];
+            for($i = 0; $i<$xml->count(); $i++){
+                # code...   
+                // if($i == 3)
+                // {
+                    // dd($xml->ProcessoLicitatorio[$i]->UnidadeGestora->__toString());    
+                // }
+                $licitacoes[$i] = Licitacao::create(
+                ['unidade_gestora' => $xml->ProcessoLicitatorio[$i]->UnidadeGestora->__toString(),
+                 'num_proc' => $xml->ProcessoLicitatorio[$i]->NumeroProcesso->__toString(),
+                 'modalidade' => $xml->ProcessoLicitatorio[$i]->Modalidade->__toString(),
+                 'tipo' => $xml->ProcessoLicitatorio[$i]->Finalidade->__toString(),
+                 'situacao' => $xml->ProcessoLicitatorio[$i]->SituacaoProcesso->__toString(),
+                 'data_julgamento' => $xml->ProcessoLicitatorio[$i]->DataJulgamento->__toString(),
+                 'data_homologacao' => $xml->ProcessoLicitatorio[$i]->DataHomologacao->__toString(),
+                 'objeto' => $xml->ProcessoLicitatorio[$i]->Objeto->__toString(),
+                 'valor' => $xml->ProcessoLicitatorio[$i]->ValorProcesso->__toString(),
+                 'criterio' => $xml->ProcessoLicitatorio[$i]->CriterioJulgamento->__toString(),
+                 'prazo_execucao' => $xml->ProcessoLicitatorio[$i]->PrazoExecucao->__toString(),
+                 'ente_id' => $requestData['ente_id'],
+                 'tipo_cadastro' => 'Importado',
+                 'situacao_cadastro' => 'Não validado',
+                 'colaborador_criou_id' => auth()->user()->id,
+                 ]
+                );
+
+                if(isset($xml->ProcessoLicitatorio[$i]->InstrumentosContratuais))
+                {
+                    $contratos = [];
+                    $contratos_xml = $xml->ProcessoLicitatorio[$i]->InstrumentosContratuais[0];
+                    // dd($contratos_xml->InstrumentoContratual[0]->NumeroLicitatorio->__toString());
+                    for($j = 0; $j<$contratos_xml->count(); $j++){
+                        $contratos[$j] = Contrato::create(
+                            ['unidade_gestora' => $contratos_xml->InstrumentoContratual[$j]->UnidadeGestora->__toString(),
+                             'data_emissao' => $contratos_xml->InstrumentoContratual[$j]->DataEmissao->__toString(),
+                             'instrumento_contrato' => $contratos_xml->InstrumentoContratual[$j]->TipoInstrumentoContratual->__toString(),
+                             'numero_contrato' => $contratos_xml->InstrumentoContratual[$j]->NumeroInstrumentoContratual->__toString(),
+                             'data_expiracao' => $contratos_xml->InstrumentoContratual[$j]->DataExpiracao->__toString(),
+                             'tipo' => $contratos_xml->InstrumentoContratual[$j]->TipoContrato->__toString(),
+                             'fornecedor' => $contratos_xml->InstrumentoContratual[$j]->NomeFornecedor->__toString(),
+                             'cnpj_cpf' => $contratos_xml->InstrumentoContratual[$j]->CNPJFornecedor->__toString(),
+                             'teve_aditivo' => $contratos_xml->InstrumentoContratual[$j]->PossuiAditivo->__toString() == 'SIM' ? 1 : 0,
+                             'processo' => $contratos_xml->InstrumentoContratual[$j]->NumeroLicitatorio->__toString(),
+                             'valor' => $contratos_xml->InstrumentoContratual[$j]->ValorInstrumentoContratual->__toString(),
+                             'descricao' => $contratos_xml->InstrumentoContratual[$j]->Objeto->__toString(),
+                             'ente_id' => $requestData['ente_id'],
+                             'colaborador_criou_id' => auth()->user()->id,
+                             'licitacao_id' => $licitacoes[$i]->id,
+                             'numero_licitacao' => $contratos_xml->InstrumentoContratual[$j]->NumeroLicitatorio->__toString(),
+                             'tipo_cadastro' => 'Importado',
+                             ]
+                        );
+                    }
+                    // dd($contratos);
+                    $licitacoes[$i]->contratos_array = $contratos;
+                }
+            //}
+                // protected $fillable = ['unidade_gestora', 'data_emissao', 'instrumento_contrato', 'numero_contrato', 'data_expiracao', 'tipo', 'fornecedor', 'cnpj_cpf', 'teve_aditivo', 'processo', 'valor', 'descricao', 'ente_id', 'colaborador_criou_id', 'colaborador_validou_id', 'licitacao_id', 'numero_licitacao'];
+            }
+            // dd($licitacoes);
+
+            // dd($xml->parse(['processos_licitatorios' => ['uses' => 'ProcessoLicitatorio.UnidadeGestora']]));
+            \Session::flash('flash_message',[
+            'msg'=>"Arquivo importado com sucesso!",
+            'class'=>"alert-success"
+            ]);
+
+            return redirect('home');
+        }
+
     }
 }
