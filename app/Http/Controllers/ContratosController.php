@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Contrato;
+use App\ItemContrato;
 use App\Ente;
 use App\Licitacao;
 use Illuminate\Http\Request;
@@ -212,6 +213,7 @@ class ContratosController extends Controller
                 {
                     $contratos = [];
                     $contratos_xml = $xml->ProcessoLicitatorio[$i]->InstrumentosContratuais[0];
+                    // dd($contratos_xml);
                     // dd($contratos_xml->InstrumentoContratual[0]->NumeroLicitatorio->__toString());
                     for($j = 0; $j<$contratos_xml->count(); $j++){
                         $contratos[$j] = Contrato::create(
@@ -234,6 +236,29 @@ class ContratosController extends Controller
                              'tipo_cadastro' => 'Importado',
                              ]
                         );
+                        if(isset($contratos_xml->InstrumentoContratual[$j]->ItensAdquiridos))
+
+                        {
+                            $itens_contrato_xml = $contratos_xml->InstrumentoContratual[$j]->ItensAdquiridos;
+                            // dd($itens_contrato_xml);
+                            $itens_contrato = [];
+                            for($k = 0; $k<$itens_contrato_xml->count(); $k++)
+                            {
+                                $itens_contrato[$k] = ItemContrato::create(
+                                ['item' => $itens_contrato_xml->Item[$k]->NumeroItem->__toString(),
+                                 // 'exercicio' => $itens_contrato_xml->Item[$k]->,
+                                 'descricao' => $itens_contrato_xml->Item[$k]->Identificacao->__toString(),
+                                 'quantidade' => $itens_contrato_xml->Item[$k]->Quantidade->__toString(),
+                                 // 'unidade_medida' => $itens_contrato_xml->Item[$k]->,
+                                 'valor_unitario' => $itens_contrato_xml->Item[$k]->ValorUnitario->__toString(),
+                                 'valor_total' => $itens_contrato_xml->Item[$k]->ValorTotal->__toString(),
+                                 'contrato_id' => $contratos[$j]->id,
+                                 ]
+                                );
+                            }
+                            $contratos[$j]->itens_contratos_array = $itens_contrato;
+                        }
+
                     }
                     // dd($contratos);
                     $licitacoes[$i]->contratos_array = $contratos;
