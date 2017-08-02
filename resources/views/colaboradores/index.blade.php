@@ -54,11 +54,18 @@
                                                         'onclick'=>'return confirm("Confirma exclusão?")'
                                                 )) !!}
                                             {!! Form::close() !!}
-                                            @if($item->ativo)
-                                            <a href="{{route('colaboradores.mudaStatus', ['id' => $item->id, 'ativo' => 0])}}" title="Desativar" class="btn btn-warning btn-xs" onclick="return confirm('Deseja desativar o colaborador?')">Desativar</a>
+                                            
+                                            @if($item->aprovacao_cadastro == 'Pendente')
+                                            <a href="{{route('colaboradores.aprovacao_cadastro', ['id' => $item->id, 'aprovacao_cadastro' => 'Aprovado'])}}" title="Aprovar" class="btn btn-success btn-xs" onclick="return confirm('Deseja aprovar o cadastro do colaborador?')">Aprovar</a>
+                                            <a href="{{route('colaboradores.aprovacao_cadastro', ['id' => $item->id, 'aprovacao_cadastro' => 'Reprovado'])}}" title="Desativar" class="btn btn-warning btn-xs" onclick="return confirm('Deseja reprovar o cadastro do colaborador?')">Reprovar</a>
                                             @else
-                                            <a href="{{route('colaboradores.mudaStatus', ['id' => $item->id, 'ativo' => 1])}}" title="Ativar" class="btn btn-success btn-xs" onclick="return confirm('Deseja ativar o colaborador?')">Ativar</a>
+                                                @if($item->ativo)
+                                                <a href="{{route('colaboradores.mudaStatus', ['id' => $item->id, 'ativo' => 0])}}" title="Desativar" class="btn btn-warning btn-xs" onclick="return confirm('Deseja desativar o colaborador?')">Desativar</a>
+                                                @else
+                                                <a href="{{route('colaboradores.mudaStatus', ['id' => $item->id, 'ativo' => 1])}}" title="Ativar" class="btn btn-success btn-xs" onclick="return confirm('Deseja ativar o colaborador?')">Ativar</a>
+                                                @endif
                                             @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

@@ -44,12 +44,22 @@ class LoginController extends Controller
             // Authentication passed...
             $colaborador = \Auth::user();
             
-            if(!$colaborador->aprovacao_cadastro)
+            if($colaborador->aprovacao_cadastro != 'Aprovado')
             {
                 \Auth::logout();
-                return redirect()->back()
-                ->withErrors(['email' => 'Seu cadastrado ainda não foi aprovado. Tente novamente mais tarde'])
-                ->withInput();           
+                if($colaborador->aprovacao_cadastro == 'Pendente')
+                {
+                    return redirect()->back()
+                    ->withErrors(['email' => 'Seu cadastrado ainda não foi aprovado. Tente novamente mais tarde'])
+                    ->withInput();               
+                }
+                else
+                {
+                    return redirect()->back()
+                    ->withErrors(['email' => 'Seu cadastrado foi reprovado.'])
+                    ->withInput();                  
+                }
+                
             }
             elseif($colaborador->ativo)
             {

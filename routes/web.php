@@ -15,34 +15,36 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
-
-Route::resource('colaboradores', 'ColaboradoresController');
-Route::get('colaboradores/{id}/mudastatus/{ativo}', 'ColaboradoresController@mudaStatus')->name('colaboradores.mudaStatus');
-Route::get('colaboradores/{id}/aprovacaodocadastro/{aprovacao_cadastro}', 'ColaboradoresController@aprovacaoCadastro')->name('colaboradores.aprovacao_cadastro');
 
 
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/home', 'HomeController@index')->name('home');
+
+	Route::group(['middleware' => 'can:isAdmin'], function() {
+		Route::resource('colaboradores', 'ColaboradoresController');
+		Route::get('colaboradores/{id}/mudastatus/{ativo}', 'ColaboradoresController@mudaStatus')->name('colaboradores.mudaStatus');
+		Route::get('colaboradores/{id}/aprovacaodocadastro/{aprovacao_cadastro}', 'ColaboradoresController@aprovacaoCadastro')->name('colaboradores.aprovacao_cadastro');
+	});
+	
+
+	Route::resource('entes', 'EntesController');
+	Route::resource('licitacoes', 'LicitacoesController');
+	Route::group(['prefix' => 'licitacoes/{licitacao_id}'], function(){
+		Route::resource('item-licitacao', 'ItemLicitacaoController');
+
+		});
 
 
-
-Route::resource('entes', 'EntesController');
-Route::resource('licitacoes', 'LicitacoesController');
-Route::group(['prefix' => 'licitacoes/{licitacao_id}'], function(){
-	Route::resource('item-licitacao', 'ItemLicitacaoController');
-
+	Route::group(['prefix' => 'contratos/{contrato_id}'], function(){
+		Route::resource('item-contrato', 'ItemContratoController');
 	});
 
-
-
-Route::group(['prefix' => 'contratos/{contrato_id}'], function(){
-	Route::resource('item-contrato', 'ItemContratoController');
-
+	Route::get('contratos/importar', 'ContratosController@formImportar')->name('contratos.formImportar');
+	Route::post('contratos/importar', 'ContratosController@importar')->name('contratos.importar');
+	Route::resource('contratos', 'ContratosController');
 });
 
-Route::get('contratos/importar', 'ContratosController@formImportar')->name('contratos.formImportar');
-Route::post('contratos/importar', 'ContratosController@importar')->name('contratos.importar');
-Route::resource('contratos', 'ContratosController');
+Auth::routes();
 
 
 
