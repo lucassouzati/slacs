@@ -161,4 +161,11 @@ class CidadaoController extends Controller
         return view('modulo-cidadao.contrato', compact('contratos'));
     }
 
+    public function mostraLicitacao($id)
+    {
+        $licitacao = Licitacao::find($id);
+
+        return view('modulo-cidadao.mostra_licitacao', compact('licitacao'));
+    }
+
 }

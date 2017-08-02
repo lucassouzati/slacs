@@ -49,6 +49,8 @@ Route::resource('contratos', 'ContratosController');
 Route::group(['prefix' => 'consulta'], function(){
 	Route::get('licitacoes', 'CidadaoController@consultaLicitacoes')->name('cidadao.consulta-licitacoes');
 	Route::get('contratos', 'CidadaoController@consultaContratos')->name('cidadao.consulta-contratos');
+
+	Route::get('licitacoes/{id}', 'CidadaoController@mostraLicitacao')->name('cidadao.mostra-licitacao');
 });
 
 // Route::get('cidadao/login', 'CidadaoController@formLogin')->name('cidadao.formLogin');
@@ -63,6 +65,8 @@ Route::group(['namespace' => 'Cidadao', 'prefix' => 'cidadao'], function () {
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('cidadao.formRegister');
     Route::post('register', 'Auth\RegisterController@register')->name('cidadao.register');
     Route::get('home', 'HomeController@index')->name('cidadao.home');
+
+
 });
 
 Route::resource('cidadao', 'CidadaoController');
