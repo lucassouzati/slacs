@@ -9,12 +9,65 @@
                     <div class="panel-heading">Filtros</div>
 
                     <div class="panel-body">
-                        {{-- {!! Form::open(['url' => '/processos/search', 'method' => 'GET', 'class' => 'form-horizontal']) !!} --}}
+                        {!! Form::open(['url' => route('cidadao.consulta-licitacoes'), 'method' => 'GET', 'class' => 'form-horizontal']) !!}
                                 <div class="col-md-12">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="ano" class="control-label">Ente: </label>
-                                            {!! Form::select('setor_atual_id', \App\Ente::pluck('nome', 'id')->put('', 'Todos'), '', ['class' => 'form-control']) !!}
+                                            <label for="ano" class="control-label">Ente Público: </label>
+                                            {!! Form::select('ente_id', \App\Ente::pluck('nome', 'id')->put('', 'Todos'), '', ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="modalidade" class="control-label">Modalidade: </label>
+                                            {!! Form::text('modalidade', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="situacao" class="control-label">Situacao: </label>
+                                            {!! Form::text('situacao', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                	<div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="ano" class="control-label">Valor Mínimo: </label>
+                                            {!! Form::number('valor_minimo', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="ano" class="control-label">Valor Máximo: </label>
+                                            {!! Form::number('valor_maximo', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="situacao" class="control-label">Critério: </label>
+                                            {!! Form::text('criterio', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="situacao" class="control-label">CNPJ/CPF: </label>
+                                            {!! Form::text('cnpj_cpf', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                	<div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ano" class="control-label">Objeto: </label>
+                                            {!! Form::text('objeto', null, ['class' => 'form-control']) !!}
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="ano" class="control-label">Que contenham nos itens: </label>
+                                            {!! Form::text('descricao_itens', null, ['class' => 'form-control']) !!}
                                         </div>    
                                     </div>
                                 </div>
@@ -26,7 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            {{-- {!! Form::close() !!} --}}
+                            {!! Form::close() !!}
                     </div>
                 </div>
 

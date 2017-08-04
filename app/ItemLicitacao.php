@@ -25,7 +25,7 @@ class ItemLicitacao extends Model
      *
      * @var array
      */
-    protected $fillable = ['item', 'descricao', 'quantidade', 'unidade_medida', 'valor_unitario', 'valor_proposta_vencedora', 'valor_total', 'licitacao_id', 'tipo_pessoa', 'cnpj_vencedor', 'cpf_vencedor'];
+    protected $fillable = ['item', 'descricao', 'quantidade', 'unidade_medida', 'valor_unitario', 'valor_proposta_vencedora', 'valor_total', 'licitacao_id', 'tipo_pessoa', 'cnpj_cpf'];
 
     
     public function licitacao()    

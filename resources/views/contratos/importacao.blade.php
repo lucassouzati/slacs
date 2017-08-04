@@ -7,7 +7,7 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Importação de Contratos</div>
+                    <div class="panel-heading">Importação de Arquivo</div>
                     <div class="panel-body">
                         <a href="{{ route('contratos.index') }}" title="Voltar"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</button></a>
                         <br />
@@ -29,13 +29,21 @@
                                     {!! $errors->first('ente_id', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+                            <div class="form-group {{ $errors->has('tipo_registro') ? 'has-error' : ''}}">
+                                {!! Form::label('tipo_registro', 'Tipo de Registro', ['class' => 'col-md-4 control-label']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::select('tipo_registro', ['licitacao' => 'Licitações', 'contrato', 'Contratos'], null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! $errors->first('tipo_registro', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                             <div class="form-group {{ $errors->has('formato') ? 'has-error' : ''}}">
                                 {!! Form::label('formato', 'Formato', ['class' => 'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::select('formato', ['XML' => 'Formato XML (Itaperuna)'], null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::select('formato', ['XML' => 'Formato XML (Itaperuna)', 'CSV' => 'CSV (Padrão SLACS)'], null, ['class' => 'form-control', 'required' => 'required']) !!}
                                     {!! $errors->first('formato', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+
                             <div class="form-group {{ $errors->has('arquivo') ? 'has-error' : ''}}">
                                 {!! Form::label('arquivo', 'Arquivo', ['class' => 'col-md-4 control-label']) !!}
                                 <div class="col-md-6">

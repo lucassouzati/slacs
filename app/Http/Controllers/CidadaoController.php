@@ -141,11 +141,56 @@ class CidadaoController extends Controller
 
     public function consultaLicitacoes(Request $request = null)
     {
-        $requestData = $request->all();
+        $filtros = $request->all();
 
-        if(empty($requestData))
+        if(empty($filtros))
         {
-            $licitacoes = Licitacao::all();    
+            $licitacoes = Licitacao::paginate(40);    
+        }
+        else
+        {
+            $licitacoes = Licitacao::when($filtros['ente_id'], function ($query) use ($filtros) {
+                    return $query->where('ente_id', $filtros['ente_id']);
+                })
+            ->when($filtros['modalidade'], function($query) use ($filtros){
+                return  $query->where('modalidade', 'LIKE', "%".$filtros['modalidade']."%");
+            })
+            ->when($filtros['situacao'], function($query) use ($filtros){
+                return  $query->where('situacao', 'LIKE', "%".$filtros['situacao']."%");
+            })
+            ->when($filtros['criterio'], function($query) use ($filtros){
+                return  $query->where('criterio', 'LIKE', "%".$filtros['criterio']."%");
+            })
+            ->when($filtros['objeto'], function($query) use ($filtros){
+                return  $query->where('objeto', 'LIKE', "%".$filtros['objeto']."%");
+            })
+            ->when(($filtros['valor_minimo'] != '' || $filtros['valor_maximo'] != ''), function ($query) use ($filtros) {
+                    if($filtros['valor_maximo'] == '' && $filtros['valor_minimo'] != '')
+                    {
+                        return $query->where('valor', '>', $filtros['valor_minimo']);    
+                    }
+                    else if($filtros['valor_maximo'] != '' && $filtros['valor_minimo'] == '')
+                    {
+                        return $query->where('valor', '<', $filtros['valor_maximo']);    
+                    }
+                    else{
+                        return $query->where('valor', '>', $filtros['valor_minimo'])
+                        ->where('valor', '<', $filtros['valor_maximo']);
+                    }
+                })
+            ->when($filtros['cnpj_cpf'], function($query) use ($filtros){
+                return $query->join('item_licitacaos', function($join) use ($filtros){
+                    $join->on('licitacoes.id', '=', 'item_licitacaos.licitacao_id')
+                    ->where('cnpj_cpf', 'LIKE', '%'.$filtros['cnpj_cpf'].'%');
+                });
+            })
+            ->when($filtros['descricao_itens'], function($query) use ($filtros){
+                return $query->join('item_licitacaos', function($join) use ($filtros){
+                    $join->on('licitacoes.id', '=', 'item_licitacaos.licitacao_id')
+                    ->where('descricao', 'LIKE', '%'.$filtros['descricao_itens'].'%');
+                });
+            })
+            ->paginate(40);
         }
         return view('modulo-cidadao.licitacao', compact('licitacoes'));
     }

@@ -35,6 +35,6 @@
 @endif
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
-        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Cadastrar', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Solicitar cadastro', ['class' => 'btn btn-primary']) !!}
     </div>
 </div>

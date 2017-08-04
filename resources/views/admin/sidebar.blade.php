@@ -1,19 +1,14 @@
 <div class="col-md-3">
     <div class="panel panel-default panel-flush">
         <div class="panel-heading">
-            Sidebar
+            Menu
         </div>
 
         <div class="panel-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
                     <a href="{{ url('/home') }}">
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('colaboradores.index') }}">
-                        Colaboradores
+                        Home
                     </a>
                 </li>
                 <li>
@@ -32,7 +27,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <a href="#">
+                        Monitorações
+                    </a>
+                </li>
+                <li>
+                    {{-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Importações <span class="caret"></span>
                                 </a>
                     <ul class="dropdown-menu" role="menu">
@@ -42,9 +42,25 @@
                                 Contratos
                             </a>
                         </li>   
-                    </ul>
-                </li>
+                    </ul> --}}
+                    <a href="{{ route('contratos.formImportar') }}">
+                                Importações
+                            </a>
+                </li>   
+                @can('isAdmin')
+                <li>
 
+                    <a href="{{ route('colaboradores.index') }}">
+                        Colaboradores
+                    </a>
+                </li>
+                <li>
+
+                    <a href="#">
+                        Configurações
+                    </a>
+                </li>
+                @endcan
 
             </ul>
         </div>

@@ -72,7 +72,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Item</th><th>Descricao</th><th>Quantidade</th><th>Unidade Medida</th><th>Valor Unitario</th><th>Valor Proposta Vencedora</th><th>Valor Total</th><th>Licitacao Id</th><th>Tipo Pessoa Fisica</th><th>Cnpj Cpf Vencedor</th><th>Actions</th>
+                                        <th>ID</th><th>Item</th><th>Descricao</th><th>Quantidade</th><th>Unidade Medida</th><th>Valor Unitario</th><th>Valor Proposta Vencedora</th><th>Valor Total</th><th>Licitação</th><th>Tipo Pessoa</th><th>Cnpj Cpf Vencedor</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

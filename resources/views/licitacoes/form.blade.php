@@ -1,3 +1,10 @@
+<div class="form-group {{ $errors->has('ente_id') ? 'has-error' : ''}}">
+    {!! Form::label('ente_id', 'Ente Público', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::select('ente_id', $entes->pluck('nome', 'id')->prepend("", ""), null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! $errors->first('ente_id', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
 <div class="form-group {{ $errors->has('unidade_gestora') ? 'has-error' : ''}}">
     {!! Form::label('unidade_gestora', 'Unidade Gestora', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
@@ -63,12 +70,6 @@
     <div class="col-md-6">
         {!! Form::text('prazo_execucao', null, ['class' => 'form-control']) !!}
         {!! $errors->first('prazo_execucao', '<p class="help-block">:message</p>') !!}
-    </div>
-</div><div class="form-group {{ $errors->has('ente_id') ? 'has-error' : ''}}">
-    {!! Form::label('ente_id', 'Ente Id', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::select('ente_id', $entes->pluck('nome', 'id')->prepend("", ""), null, ['class' => 'form-control', 'required' => 'required']) !!}
-        {!! $errors->first('ente_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 

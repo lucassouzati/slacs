@@ -16,12 +16,13 @@ Route::get('/', function () {
 });
 
 
-
+Route::get('colaboradores/create', 'ColaboradoresController@create')->name('colaboradores.create');
+Route::post('colaboradores', 'ColaboradoresController@store')->name('colaboradores.store');
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::group(['middleware' => 'can:isAdmin'], function() {
-		Route::resource('colaboradores', 'ColaboradoresController');
+		Route::resource('colaboradores', 'ColaboradoresController', ['except' => ['create', 'store']]);
 		Route::get('colaboradores/{id}/mudastatus/{ativo}', 'ColaboradoresController@mudaStatus')->name('colaboradores.mudaStatus');
 		Route::get('colaboradores/{id}/aprovacaodocadastro/{aprovacao_cadastro}', 'ColaboradoresController@aprovacaoCadastro')->name('colaboradores.aprovacao_cadastro');
 	});

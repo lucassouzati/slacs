@@ -54,18 +54,12 @@
         </div>
     </div>
 </div>
-<div id="div_pessoa_juridica" class="form-group {{ $errors->has('cnpj_vencedor') ? 'has-error' : ''}}">
-    {!! Form::label('cnpj_vencedor', 'Cnpj do vencedor', ['class' => 'col-md-4 control-label']) !!}
+
+<div class="form-group {{ $errors->has('cnpj_cpf') ? 'has-error' : ''}}">
+    {!! Form::label('cnpj_cpf', 'CNPJ/CPF', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('cnpj_vencedor', null, ['class' => 'form-control','id' =>'cnpj']) !!}
-        {!! $errors->first('cnpj_vencedor', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-<div id="div_pessoa_fisica" class="form-group {{ $errors->has('cpf_vencedor') ? 'has-error' : ''}}">
-    {!! Form::label('cpf_vencedor', 'Cpf do vencedor', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::text('cpf_vencedor', null, ['class' => 'form-control','id' =>'cpf']) !!}
-        {!! $errors->first('cpf_vencedor', '<p class="help-block">:message</p>') !!}
+        {!! Form::text('cnpj_cpf', null, ['class' => 'form-control','id' =>'cpf']) !!}
+        {!! $errors->first('cnpj_cpf', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -77,27 +71,27 @@
 </div>
 <script>
     $(document).ready(function() {
-        $("#div_pessoa_fisica").hide();
+        // $("#div_pessoa_fisica").hide();
 
         $("#cpf").inputmask("999.999.999-99");
         $("#cnpj").inputmask("99.999.999/9999-99");
 
-        $("input[type=radio][name=tipo_pessoa]").change(function (){
-            var valor = this.value;
-            if (valor == "fisica") {
-                $("#cpf").attr("required", "true");
-                $("#cnpj").removeAttr("required");
-                $("#cnpj").removeAttr("value");
-                $("#div_pessoa_fisica").show();
-                $("#div_pessoa_juridica").hide();
-            }
-            else{
-                $("#cpf").removeAttr("required");
-                $("#cpf").removeAttr("value");
-                $("#cnpj").attr("required", "true");
-                $("#div_pessoa_fisica").hide();
-                $("#div_pessoa_juridica").show();
-            }
-        });
+        // $("input[type=radio][name=tipo_pessoa]").change(function (){
+        //     var valor = this.value;
+        //     if (valor == "fisica") {
+        //         $("#cpf").attr("required", "true");
+        //         $("#cnpj").removeAttr("required");
+        //         $("#cnpj").removeAttr("value");
+        //         $("#div_pessoa_fisica").show();
+        //         $("#div_pessoa_juridica").hide();
+        //     }
+        //     else{
+        //         $("#cpf").removeAttr("required");
+        //         $("#cpf").removeAttr("value");
+        //         $("#cnpj").attr("required", "true");
+        //         $("#div_pessoa_fisica").hide();
+        //         $("#div_pessoa_juridica").show();
+        //     }
+        // });
     });
 </script>
