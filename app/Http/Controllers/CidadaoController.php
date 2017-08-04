@@ -197,11 +197,62 @@ class CidadaoController extends Controller
     
     public function consultaContratos(Request $request = null)
     {
-        $requestData = $request->all();
+        $filtros = $request->all();
 
-        if(empty($requestData))
+        if(empty($filtros))
         {
-            $contratos = Licitacao::all();    
+            $contratos = Contrato::paginate(40);    
+        }
+        else
+        {
+            $contratos = Contrato::when($filtros['ente_id'], function ($query) use ($filtros) {
+                    return $query->where('ente_id', $filtros['ente_id']);
+                })
+            ->when(isset($filtros['processo']), function($query) use ($filtros){
+                return  $query->where('processo', 'LIKE', "%".$filtros['processo']."%");
+            })
+            ->when(isset($filtros['numero_contrato']), function($query) use ($filtros){
+                return  $query->where('numero_contrato', 'LIKE', "%".$filtros['numero_contrato']."%");
+            })
+            ->when(isset($filtros['tipo']), function($query) use ($filtros){
+                return  $query->where('tipo', 'LIKE', "%".$filtros['tipo']."%");
+            })
+            ->when(isset($filtros['cnpj_cpf']), function($query) use ($filtros){
+                return  $query->where('cnpj_cpf', 'LIKE', "%".$filtros['cnpj_cpf']."%");
+            })
+            ->when(isset($filtros['fornecedor']), function($query) use ($filtros){
+                return  $query->where('fornecedor', 'LIKE', "%".$filtros['fornecedor']."%");
+            })
+            ->when(isset($filtros['descricao']), function($query) use ($filtros){
+                return  $query->where('descricao', 'LIKE', "%".$filtros['descricao']."%");
+            })
+            // ->when($filtros['valor_minimo'] != '' || $filtros['valor_maximo'] != '', function ($query) use ($filtros) {
+            //         if($filtros['valor_maximo'] == '' && $filtros['valor_minimo'] != '')
+            //         {
+            //             return $query->where('valor', '>', $filtros['valor_minimo']);    
+            //         }
+            //         else if($filtros['valor_maximo'] != '' && $filtros['valor_minimo'] == '')
+            //         {
+            //             return $query->where('valor', '<', $filtros['valor_maximo']);    
+            //         }
+            //         else{
+            //             return $query->where('valor', '>', $filtros['valor_minimo'])
+            //             ->where('valor', '<', $filtros['valor_maximo']);
+            //         }
+            //     })
+            ->when(isset($filtros['valor_minimo']), function($query) use ($filtros){
+                return  $query->where('valor', '>', $filtros['valor_minimo']);
+            })
+            ->when(isset($filtros['valor_maximo']), function($query) use ($filtros){
+                return  $query->where('valor', '<', $filtros['valor_maximo']);
+            })
+            ->when(isset($filtros['descricao_itens']), function($query) use ($filtros){
+                return $query->join('item_contratos', function($join) use ($filtros){
+                    $join->on('contratos.id', '=', 'item_contratos.contrato_id')
+                    ->where('item_contratos.descricao', 'LIKE', '%'.$filtros['descricao_itens'].'%');
+                });
+            })
+            ->paginate(40);
         }
         return view('modulo-cidadao.contrato', compact('contratos'));
     }
@@ -212,5 +263,13 @@ class CidadaoController extends Controller
 
         return view('modulo-cidadao.mostra_licitacao', compact('licitacao'));
     }
+
+    public function mostraContrato($id)
+    {
+        $contrato = Contrato::find($id);
+
+        return view('modulo-cidadao.mostra_contrato', compact('contrato'));
+    }
+
 
 }
