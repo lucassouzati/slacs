@@ -60,10 +60,10 @@
                           </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="col-md-6">
-                            Descricão
+                        <div class="col-md-7">
+                            Descricão:: {{$item->descricao}}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             Quantidade: {{$item->quantidade}}
                         </div>
                         <div class="col-md-3">

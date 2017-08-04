@@ -224,7 +224,7 @@ class CidadaoController extends Controller
                 return  $query->where('fornecedor', 'LIKE', "%".$filtros['fornecedor']."%");
             })
             ->when(isset($filtros['descricao']), function($query) use ($filtros){
-                return  $query->where('descricao', 'LIKE', "%".$filtros['descricao']."%");
+                return  $query->where('contratos.descricao', 'LIKE', "%".$filtros['descricao']."%");
             })
             // ->when($filtros['valor_minimo'] != '' || $filtros['valor_maximo'] != '', function ($query) use ($filtros) {
             //         if($filtros['valor_maximo'] == '' && $filtros['valor_minimo'] != '')
