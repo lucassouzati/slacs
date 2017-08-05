@@ -69,7 +69,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{route('cidadao.consulta-licitacoes')}}" title="Licitações">Licitações</a></li>
                             <li><a href="{{route('cidadao.consulta-contratos')}}" title="Contratos">Contratos</a></li>
-                            <li><a href="" title="Estatísticas">Estatísticas</a></li>
+                            <li><a href="{{route('cidadao.consulta-estatisticas')}}" title="Estatísticas">Estatísticas</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -87,9 +87,6 @@
         <!-- /.container -->
     </nav>
     </div>
-
-    @yield('content')
-
     <!-- jQuery -->
     <script src="{{asset('js/jquery.js')}}"></script>
 
@@ -99,6 +96,12 @@
     <!-- Scrolling Nav JavaScript -->
     <script src="{{asset('js/jquery.easing.min.js')}}"></script>
     <script src="{{asset('js/scrolling-nav.js')}}"></script>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    @yield('content')
+
+    
 
 </body>
 

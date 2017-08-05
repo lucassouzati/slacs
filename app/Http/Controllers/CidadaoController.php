@@ -401,4 +401,9 @@ class CidadaoController extends Controller
         // dd("teste");
         return Ente::all();
     }
+
+    public function consultaEstatisticas()
+    {
+        return view('modulo-cidadao.estatisticas');
+    }
 }
