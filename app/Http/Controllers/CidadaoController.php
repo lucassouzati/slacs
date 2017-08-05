@@ -11,6 +11,7 @@ use App\Licitacao;
 use App\Contrato;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 
 class CidadaoController extends Controller
 {
@@ -405,5 +406,31 @@ class CidadaoController extends Controller
     public function consultaEstatisticas()
     {
         return view('modulo-cidadao.estatisticas');
+
+    }
+
+    public function apiValorTotalContratosPorEnte()
+    {
+        return DB::table('contratos')
+        ->select(DB::raw('entes.id, entes.nome, sum(valor) as total'))
+        ->join('entes', 'contratos.ente_id', '=', 'entes.id')
+        ->groupBy('entes.id')
+        ->groupBy('entes.nome')
+        ->get();
+    }
+
+    public function apiItensMaisCaros($ente_id)
+    {
+        return DB::table('item_contratos')   
+        ->select(DB::raw('item_contratos.descricao, sum(item_contratos.valor_unitario) as valor'))
+        ->join('contratos', 'item_contratos.contrato_id', '=', 'contratos.id')
+        ->join('entes', function($join) use ($ente_id){
+            $join->on('contratos.ente_id', '=', 'entes.id')
+            ->where('entes.id', $ente_id);
+        })
+        ->groupBy('item_contratos.descricao')
+        ->orderBy('valor', 'DESC')
+        ->limit(10)
+        ->get();
     }
 }

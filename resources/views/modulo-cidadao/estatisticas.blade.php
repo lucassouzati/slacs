@@ -96,7 +96,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Valor apurado em Contratos por Ente Público</div>
                     <div class="panel-body">
-                        
+                        <canvas id="chartContratos" width="400" height="200"></canvas>    
                     </div>
 
                 </div>
@@ -104,8 +104,10 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">10 itens mais caros de cada ente público</div>
-                    <div class="panel-body">
-                        
+                    <div class="panel-body">    
+                        <div class="panel-body">
+                            <canvas id="chartItensMaisCaros"></canvas>    
+                        </div>
                     </div>
 
                 </div>
@@ -125,19 +127,129 @@
         </div>
     </div>
  <script type="text/javascript">
- function gerarGraficos(data){
+ function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+ function geraGraficoTotalContratoPorEnte(dados){
+    console.log(dados);
+
+    var data=[];
+    data['labels']=[];
+    data['datasets']=[];
+    data['datasets'][0]={
+        data: [],
+        backgroundColor: [],
+        // label: [],
+        // borderColor: "rgba(0,0,0,0)",
+        label: 'Total do Ente',
+        borderWidth: [],
+    };
+    for (i=0;i<dados.length;i++){
+        el=dados[i];
+        data['labels'][i]=el.nome;
+        data['datasets'][0].label[i]=el.nome;
+        // data['datasets'][0].data[i]=el.total;
+        data['datasets'][0].backgroundColor[i]=getRandomColor();
+        data['datasets'][0].borderWidth[i]=1;
+    }
     console.log(data);
+    var chartContratos = document.getElementById("chartContratos");
+    var dadosContratos = new Chart(chartContratos, {
+        type: 'bar',
+        data: data
+    });
+ }
+ function geraGraficoItensMaisCaros(dados){
+    console.log(dados);
+
+    var data=[];
+    data['labels']=[];
+    data['datasets']=[];
+    data['datasets'][0]={
+        data: [],
+        backgroundColor: [],
+        // label: [],
+        // borderColor: "rgba(0,0,0,0)",
+        label: 'Preço Unitário do Item',
+        borderWidth: [],
+    };
+    for (i=0;i<dados.length;i++){
+        el=dados[i];
+        data['labels'][i]=el.descricao;
+        // data['datasets'][0].label[i]=el.descricao;
+        data['datasets'][0].data[i]=el.valor;
+        data['datasets'][0].backgroundColor[i]=getRandomColor();
+        data['datasets'][0].borderWidth[i]=1;
+    }
+// var data=[];
+//     // data['labels']=[];
+//     // data['datasets']=[];
+//     for (i=0;i<dados.length;i++){
+//         el=dados[i];
+        
+//         data[i]=[];
+
+//         data[i]['labels'] = el.descricao;
+//         data[i]['datasets']=[{
+//             data: [el.valor],
+//             backgroundColor: getRandomColor(),
+//             label: el.descricao,
+//             // labels: el.descricao,
+//             // labels: [],
+//             // borderColor: "rgba(0,0,0,0)",
+//             // label: 'Preço Unitário do Item',
+//             // borderWidth: [],
+//         }];
+//     }
+//     // for (i=0;i<dados.length;i++){
+//     //     el=dados[i];
+//     //     data['labels'][i]=el.descricao;
+//     //     // data['datasets'][0].label[i]=el.descricao;
+//     //     data['datasets'][0].data[i]=el.valor;
+//     //     data['datasets'][0].backgroundColor[i]=getRandomColor();
+//     //     data['datasets'][0].borderWidth[i]=1;
+//     // }
+//     console.log(data);
+//     var chartItensMaisCaros = document.getElementById("chartItensMaisCaros");
+//     var dadosItens = new Chart(chartItensMaisCaros, {
+//         type: 'bar',
+//         data: data
+//     });
+
+    console.log(data);
+    var chartItensMaisCaros = document.getElementById("chartItensMaisCaros");
+    var dadosItens = new Chart(chartItensMaisCaros, {
+        type: 'bar',
+        data: data
+    });
  }
  function carregarDados(){
     $.ajax({
-    url: '{{route('cidadao.api-contratos')}}',
+    url: '{{route('cidadao.api-contratos-total-por-ente')}}',
     success: function (data) {
         // faça o tratamento dos dados e atualize
         // as variáveis dos gráficos.
 
         dataBar = data;
 
-        gerarGraficos(dataBar);
+        geraGraficoTotalContratoPorEnte(dataBar);
+    }
+    });
+
+    $.ajax({
+    url: '{{route('cidadao.api-contratos-itens-mais-caros', 1)}}',
+    success: function (data) {
+        // faça o tratamento dos dados e atualize
+        // as variáveis dos gráficos.
+
+        dataBar = data;
+
+        geraGraficoItensMaisCaros(dataBar);
     }
     });
 }
