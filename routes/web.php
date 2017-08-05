@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Route::get('colaboradores/create', 'ColaboradoresController@create')->name('colaboradores.create');
 Route::post('colaboradores', 'ColaboradoresController@store')->name('colaboradores.store');
+
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 
@@ -56,6 +58,10 @@ Route::group(['prefix' => 'consulta'], function(){
 	Route::get('licitacoes/{id}', 'CidadaoController@mostraLicitacao')->name('cidadao.mostra-licitacao');
 	Route::get('contratos/{id}', 'CidadaoController@mostraContrato')->name('cidadao.mostra-contrato');
 });
+
+
+
+
 
 // Route::get('cidadao/login', 'CidadaoController@formLogin')->name('cidadao.formLogin');
 Route::group(['namespace' => 'Cidadao', 'prefix' => 'cidadao'], function () {

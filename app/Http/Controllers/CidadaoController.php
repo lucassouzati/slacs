@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Cidadao;
+use App\Ente;
 use App\Licitacao;
 use App\Contrato;
 use Illuminate\Http\Request;
@@ -271,5 +272,133 @@ class CidadaoController extends Controller
         return view('modulo-cidadao.mostra_contrato', compact('contrato'));
     }
 
+    public function apiLicitacoes(Request $request)
+    {
+        $filtros = $request->all();
 
+        if(empty($filtros))
+        {
+            $licitacoes = Licitacao::all();    
+        }
+        else
+        {
+            $licitacoes = Licitacao::when(isset($filtros['ente_id']), function ($query) use ($filtros) {
+                    return $query->where('ente_id', $filtros['ente_id']);
+                })
+            ->when(isset($filtros['modalidade']), function($query) use ($filtros){
+                return  $query->where('modalidade', 'LIKE', "%".$filtros['modalidade']."%");
+            })
+            ->when(isset($filtros['situacao']), function($query) use ($filtros){
+                return  $query->where('situacao', 'LIKE', "%".$filtros['situacao']."%");
+            })
+            ->when(isset($filtros['criterio']), function($query) use ($filtros){
+                return  $query->where('criterio', 'LIKE', "%".$filtros['criterio']."%");
+            })
+            ->when(isset($filtros['objeto']), function($query) use ($filtros){
+                return  $query->where('objeto', 'LIKE', "%".$filtros['objeto']."%");
+            })
+           ->when(isset($filtros['valor_minimo']), function($query) use ($filtros){
+                return  $query->where('valor', '>', $filtros['valor_minimo']);
+            })
+            ->when(isset($filtros['valor_maximo']), function($query) use ($filtros){
+                return  $query->where('valor', '<', $filtros['valor_maximo']);
+            })
+            ->when(isset($filtros['cnpj_cpf']), function($query) use ($filtros){
+                return $query->join('item_licitacaos', function($join) use ($filtros){
+                    $join->on('licitacoes.id', '=', 'item_licitacaos.licitacao_id')
+                    ->where('cnpj_cpf', 'LIKE', '%'.$filtros['cnpj_cpf'].'%');
+                });
+            })
+            ->when(isset($filtros['descricao_itens']), function($query) use ($filtros){
+                return $query->join('item_licitacaos', function($join) use ($filtros){
+                    $join->on('licitacoes.id', '=', 'item_licitacaos.licitacao_id')
+                    ->where('descricao', 'LIKE', '%'.$filtros['descricao_itens'].'%');
+                });
+            })
+            ->get();
+            // ->paginate(40);
+        }
+        return $licitacoes;
+    }
+
+    public function apiItensDaLicitacao($id, Request $request = nul)
+    {
+        $itens_licitacao = Licitacao::find($id)->itensLicitacao;
+        return $itens_licitacao;
+    }
+
+    public function apiContratos(Request $request = null)
+    {
+        $filtros = $request->all();
+
+        if(empty($filtros))
+        {
+            $contratos = Contrato::all();    
+        }
+        else
+        {
+            $contratos = Contrato::when(isset($filtros['ente_id']), function ($query) use ($filtros) {
+                    return $query->where('ente_id', $filtros['ente_id']);
+                })
+            ->when(isset($filtros['processo']), function($query) use ($filtros){
+                return  $query->where('processo', 'LIKE', "%".$filtros['processo']."%");
+            })
+            ->when(isset($filtros['numero_contrato']), function($query) use ($filtros){
+                return  $query->where('numero_contrato', 'LIKE', "%".$filtros['numero_contrato']."%");
+            })
+            ->when(isset($filtros['tipo']), function($query) use ($filtros){
+                return  $query->where('tipo', 'LIKE', "%".$filtros['tipo']."%");
+            })
+            ->when(isset($filtros['cnpj_cpf']), function($query) use ($filtros){
+                return  $query->where('cnpj_cpf', 'LIKE', "%".$filtros['cnpj_cpf']."%");
+            })
+            ->when(isset($filtros['fornecedor']), function($query) use ($filtros){
+                return  $query->where('fornecedor', 'LIKE', "%".$filtros['fornecedor']."%");
+            })
+            ->when(isset($filtros['descricao']), function($query) use ($filtros){
+                return  $query->where('contratos.descricao', 'LIKE', "%".$filtros['descricao']."%");
+            })
+            // ->when($filtros['valor_minimo'] != '' || $filtros['valor_maximo'] != '', function ($query) use ($filtros) {
+            //         if($filtros['valor_maximo'] == '' && $filtros['valor_minimo'] != '')
+            //         {
+            //             return $query->where('valor', '>', $filtros['valor_minimo']);    
+            //         }
+            //         else if($filtros['valor_maximo'] != '' && $filtros['valor_minimo'] == '')
+            //         {
+            //             return $query->where('valor', '<', $filtros['valor_maximo']);    
+            //         }
+            //         else{
+            //             return $query->where('valor', '>', $filtros['valor_minimo'])
+            //             ->where('valor', '<', $filtros['valor_maximo']);
+            //         }
+            //     })
+            ->when(isset($filtros['valor_minimo']), function($query) use ($filtros){
+                return  $query->where('valor', '>', $filtros['valor_minimo']);
+            })
+            ->when(isset($filtros['valor_maximo']), function($query) use ($filtros){
+                return  $query->where('valor', '<', $filtros['valor_maximo']);
+            })
+            ->when(isset($filtros['descricao_itens']), function($query) use ($filtros){
+                return $query->join('item_contratos', function($join) use ($filtros){
+                    $join->on('contratos.id', '=', 'item_contratos.contrato_id')
+                    ->where('item_contratos.descricao', 'LIKE', '%'.$filtros['descricao_itens'].'%');
+                });
+            })
+            ->get();
+            // ->paginate(40);
+        }
+        return $contratos;
+    }
+
+    public function apiItensDoContrato($id, Request $request = nul)
+    {
+        $itens_contrato = Contrato::find($id)->itensContrato;
+        return $itens_contrato;
+    }
+
+    public function apiEntes(Request $request = null)
+    {
+        // dd("teste");
+        return Ente::all();
+    }
 }
