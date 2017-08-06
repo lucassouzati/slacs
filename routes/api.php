@@ -22,7 +22,7 @@ Route::get('contratos/total/porente', 'CidadaoController@apiValorTotalContratosP
 Route::get('contratos/itens/maiscaros/{ente_id}', 'CidadaoController@apiItensMaisCaros')->name('cidadao.api-contratos-itens-mais-caros');
 
 Route::get('licitacoes/{id}/itens', 'CidadaoController@apiItensDaLicitacao')->name('cidadao.api-itens_licitacao');
-Route::get('contratos/{id}/itens', 'CidadaoController@apiItensDoContrato')->name('cidadao.api-itens_contrato');
+Route::get('contratos/itens/{id?}', 'CidadaoController@apiItensDoContrato')->name('cidadao.api-itens_contrato');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

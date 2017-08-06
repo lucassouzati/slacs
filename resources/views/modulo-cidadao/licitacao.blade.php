@@ -81,7 +81,7 @@
                                 </div>
                             {!! Form::close() !!}
                     </div>
-                </div>
+            </div>
 
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -102,7 +102,7 @@
 	                    		<tbody>
 	                    			@foreach($licitacoes as $item)
 	                                <tr>
-	                                    <td>{{ $item->unidade_gestora }}</td>
+	                                    <td>{{ $item->ente->nome }}</td>
 	                                    <td>{{ $item->modalidade }}</td>
 	                                    <td>{{ $item->situacao }}</td>
 	                                    <td>{{ $item->valor }}</td>
@@ -113,7 +113,11 @@
 	                    	</table>
 	                    </div>
                     </div>
-
+                    @if(isset($filtros))
+                    <div class="pagination-wrapper"> {!! $licitacoes->appends($filtros)->render() !!} </div>
+                    @else
+                    <div class="pagination-wrapper"> {!! $licitacoes->render() !!} </div>
+                    @endif
                 </div>
             </div>
         </div>

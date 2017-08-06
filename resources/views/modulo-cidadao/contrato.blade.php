@@ -1,7 +1,7 @@
-@extends('modulo-cidadao.layouts.app')
+@extends('modulo-cidadao.layouts.app2')
 
 @section('content')
-<section id="intro" class="services-section">
+
     <div class="container">
         <div class="row">
             
@@ -124,10 +124,14 @@
                         	</table>
                         </div>
                     </div>
-
+                    @if(isset($filtros))
+                    <div class="pagination-wrapper"> {!! $contratos->appends($filtros)->render() !!} </div>
+                    @else
+                    <div class="pagination-wrapper"> {!! $contratos->render() !!} </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
- </section>
+ 
 @endsection
