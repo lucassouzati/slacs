@@ -409,6 +409,12 @@ class CidadaoController extends Controller
 
     }
 
+    public function consultaApi()
+    {
+        return view('modulo-cidadao.api');
+
+    }
+
     public function apiValorTotalContratosPorEnte()
     {
         return DB::table('contratos')
