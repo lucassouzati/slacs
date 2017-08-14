@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('contratos/importar', 'ContratosController@formImportar')->name('contratos.formImportar');
 	Route::post('contratos/importar', 'ContratosController@importar')->name('contratos.importar');
 	Route::resource('contratos', 'ContratosController');
+	Route::get('historicos_de_acesso', 'HistoricoDeAcessoController@index')->name('historicos_de_acesso.index');
+	Route::get('historicos_de_acesso/importar', 'HistoricoDeAcessoController@importar')->name('historicos_de_acesso.importar');
 
 	// Route::get('configuracoes', 'ConfiguracoesController@lista')
 });

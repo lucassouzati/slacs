@@ -27,8 +27,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        Monitorações
+                    <a href="{{route('historicos_de_acesso.index')}}">
+                        Históricos de Acesso
                     </a>
                 </li>
                 <li>
