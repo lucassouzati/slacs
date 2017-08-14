@@ -12,7 +12,8 @@
                         <a href="{{ url('/entes/create') }}" class="btn btn-success btn-sm" title="Cadastrar Ente">
                             <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
                         </a>
-
+                        <a href="{{route('entes.exportar')}}" title="Exportar entes" class="btn btn-primary btm-sm">Exportar Entes</a>
+                        <a href="{{route('entes.importar')}}" title="Importar entes" class="btn btn-primary btm-sm">Importar Entes</a>
                         {!! Form::open(['method' => 'GET', 'url' => '/entes', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Search...">

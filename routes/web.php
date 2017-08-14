@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 	
 
+	Route::get('exporta_entes', 'EntesController@exportaEntes')->name('entes.exportar');
+	Route::get('importa_entes', 'EntesController@importaEntes')->name('entes.importar');
 	Route::resource('entes', 'EntesController');
 	Route::resource('licitacoes', 'LicitacoesController');
 	Route::group(['prefix' => 'licitacoes/{licitacao_id}'], function(){
@@ -45,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('contratos/importar', 'ContratosController@formImportar')->name('contratos.formImportar');
 	Route::post('contratos/importar', 'ContratosController@importar')->name('contratos.importar');
 	Route::resource('contratos', 'ContratosController');
+
+	// Route::get('configuracoes', 'ConfiguracoesController@lista')
 });
 
 Auth::routes();

@@ -8,12 +8,14 @@
         "php": ">=5.6.4",
         "appzcoder/crud-generator": "^2.0",
         "doctrine/dbal": "v2.5.5",
+        "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3",
         "laravellegends/pt-br-validator": "5.*",
         "orchestra/parser": "~3.4",
-        "spatie/laravel-backup": "^3.0.0"
+        "spatie/laravel-backup": "^3.0.0",
+        "symfony/psr-http-message-bridge": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.4",

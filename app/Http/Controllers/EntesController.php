@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Ente;
 use Illuminate\Http\Request;
 use Session;
+use GuzzleHttp\Client;
 
 class EntesController extends Controller
 {
@@ -138,5 +139,58 @@ class EntesController extends Controller
         ]);
 
         return redirect('entes');
+    }
+
+    public function exportaEntes()
+    {
+        $entes = Ente::where('ativo', 1)->get();
+        
+        try{
+            $client = new Client();
+            $result = $client->request('POST', 'http://192.168.0.105:8001/entes', [
+                'json' => ['entes' => $entes],
+            ]);
+        }
+        catch (Exception $e){
+
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu algum erro ao exportar os dados.']);
+        }
+
+        if($result->getStatusCode() == 200)
+        {
+            \Session::flash('flash_message',[
+            'msg'=>"Entes exportados com sucesso!",
+            'class'=>"alert-success"
+            ]);
+            return redirect()->back();
+        }
+        else{
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu algum erro ao exportar os dados.']);
+        }
+        // dd($client);
+    }
+
+    public function importaEntes()
+    {
+        try{
+            $client = new Client();
+            $result = $client->request('GET', 'http://192.168.0.105:8001/entes');
+        }
+        catch (Exception $e){
+
+            return redirect()->back()->withErrors(['errors' => 'Ocorreu algum erro ao exportar os dados.']);
+        }
+        $entes = json_decode($result->getBody());
+        foreach ($entes as $ente)
+        {
+            // dd($ente);
+            Ente::find($ente->id)->update(['classificacao' => $ente->classificacao]);
+        }
+
+        \Session::flash('flash_message',[
+            'msg'=>"Entes importados com sucesso!",
+            'class'=>"alert-success"
+            ]);
+        return redirect()->back();
     }
 }
