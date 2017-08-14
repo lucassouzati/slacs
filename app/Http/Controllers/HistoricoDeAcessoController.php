@@ -18,7 +18,16 @@ class HistoricoDeAcessoController extends Controller
     	}
     	else
     	{
-
+		    $historicos_de_acesso = HistoricoDeAcesso::when(isset($filtros['ente_id']), function ($query) use ($filtros) {
+                return $query->where('ente_id', $filtros['ente_id']);
+            })
+            ->when(isset($filtros['data_inicio']), function($query) use ($filtros){
+            	return $query->where('data_hora', '>', $filtros['data_inicio']);
+            })
+            ->when(isset($filtros['data_fim']), function($query) use ($filtros){
+            	return $query->where('data_hora', '<', $filtros['data_fim']);
+            })
+            ->paginate(50);
     	}
 
     	return view('entes.historicos_de_acesso.index', compact('historicos_de_acesso'));
