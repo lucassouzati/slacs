@@ -98,19 +98,22 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services-section">
-        <div class="container">
+    <section id="services" class="services-section ">
+        <div class="container" id="counter">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="topicos">Dados no portal</h1>
                     <div class="col-lg-4">
                         <h2 class="topicos">Entes fiscalizados</h2>
+                        <h2 class="topicos counter-value" data-count="{{$qtd['entes']}}">0</h2>
                     </div>
                     <div class="col-lg-4">
                         <h2 class="topicos">Itens</h2>
+                        <h2 class="topicos counter-value" data-count="{{$qtd['itens']}}">0</h2>
                     </div>
                     <div class="col-lg-4">
                         <h2 class="topicos">Monitoramentos</h2>
+                        <h2 class="topicos counter-value" data-count="{{$qtd['historicos_de_acesso']}}">0</h2>
                     </div>
 
                 </div>
@@ -145,6 +148,8 @@
         </div>
     </section>
 
+
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -154,6 +159,42 @@
     <!-- Scrolling Nav JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/scrolling-nav.js"></script>
+
+    <script type="text/javascript">
+        var a = 0;
+          $(window).scroll(function() {
+
+          var oTop = $('#counter').offset().top - window.innerHeight;
+          if (a == 0 && $(window).scrollTop() > oTop) {
+            $('.counter-value').each(function() {
+              var $this = $(this),
+                countTo = $this.attr('data-count');
+              $({
+                countNum: $this.text()
+              }).animate({
+                  countNum: countTo
+                },
+
+                {
+
+                  duration: 5000,
+                  easing: 'swing',
+                  step: function() {
+                    $this.text(Math.floor(this.countNum));
+                  },
+                  complete: function() {
+                    $this.text(this.countNum);
+                    //alert('finished');
+                  }
+
+                });
+            });
+            a = 1;
+          }
+
+        });
+        
+    </script>
 
 </body>
 

@@ -12,7 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+	$qtd = [];
+	$qtd['entes'] = \App\Ente::all()->count();
+    $qtd['itens'] = \App\ItemContrato::all()->count() + \App\ItemLicitacao::all()->count();
+    $qtd['historicos_de_acesso'] = \App\HistoricoDeAcesso::all()->count();
+
+    return view('welcome', compact('qtd'));
 });
 
 
