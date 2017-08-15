@@ -57,6 +57,9 @@
                         <a class="page-scroll" href="#about">Controle Social</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#classificacao">Classificação</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#contact">Quero colaborar</a>
                     </li>
                     <li class="dropdown">
@@ -127,9 +130,47 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="topicos">Controle Social</h1>
-                    <p class="textos"> Apesar do Brasil possuir uma legislação robusta referente a transparência pública, muitos órgãos não cumprem essas leis, principalmente os da esfera municipal. A fiscalização de órgãos competentes não garantiu que os entes públicos fiscalizados mantivessem seus sites institucionais atualizados com informações obrigatórias. Tal fato somado com a inércia do brasileiro perante aos descaso de seus governantes, indica a necessidade de iniciativas alternativas de fiscalizações. </p>
-                    <p class="textos">Nesse cenário, surge o SLACS, ferramenta que visa suprir a carência de dados abertos referentes a entes públicos municipais e difundir a cultura de Controle Social local com a disponibilização em formato aberto e pradronizado, dados referente a entes públicos municipais .</p>
+                    <p class="textos"> Apesar do Brasil possuir uma legislação robusta referente a transparência pública, muitos órgãos públicos não a respeitam, principalmente os da esfera municipal. A fiscalização de órgãos competentes não garantiu que os entes públicos fiscalizados mantivessem seus sites institucionais atualizados com informações obrigatórias. Tal fato somado com a inércia do brasileiro perante aos descaso de seus governantes, indica a necessidade de iniciativas alternativas de fiscalizações. </p>
+                    <p class="textos">Nesse cenário, surge o SLACS, ferramenta que visa suprir a carência de dados abertos referentes a entes públicos municipais e difundir a cultura de Controle Social local com a disponibilização de dados referente a entes públicos municipais em formato aberto e padronizado.</p>
                     {{-- A cada dia que se passa, o brasileiro presencia tantos casos de corrupção envolvendo seus governantes, chegando ao ponto de muitos se acomodarem. A acomodação destes nos incomoda. Enquanto a maioria acompanha pela mídia escândos na capital do país, se esquecem que nas portas de sua casa também tem dinheiro público sendo desviado. --}}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="classificacao" class="classificacao-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="col-md-12">
+                    <h1 class="topicos">Classificação dos Entes Públicos <a data-toggle="modal" data-target="#help" title="Ajuda" class="textos">(?)</a></h1>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <h2 class="topicos">1ª Classificação</h2>
+                            @foreach($entes->where('classificacao', 1) as $ente)
+                            <p class="textos">{{$ente->nome}}</p>
+                            @endforeach
+                        </div>
+                    <div class="col-md-3">
+                        <h2 class="topicos">2ª Classificação</h2>
+                            @foreach($entes->where('classificacao', 2) as $ente)
+                            <p class="textos">{{$ente->nome}}</p>
+                            @endforeach
+                    </div>
+                    <div class="col-md-3">
+                        <h2 class="topicos">3ª Classificação</h2>
+                            @foreach($entes->where('classificacao', 3) as $ente)
+                            <p class="textos">{{$ente->nome}}</p>
+                            @endforeach
+                    </div>
+                    <div class="col-md-3">
+                        <h2 class="topicos">4ª Classificação</h2>
+                            @foreach($entes->where('classificacao', 4) as $ente)
+                            <p class="textos">{{$ente->nome}}</p>
+                            @endforeach
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -142,12 +183,38 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="topicos">Quero colaborar</h1>
-                    <p class="textos">Vocẽ pode colaborar de diversas formas. Entre em contato com o e-mail lucassouza.ti@gmail.com para maiores informações.</p>
+                    <p class="textos">O projeto é livre para a participação de qualquer interessado. Você pode ajudar tanto em aspectos técnicos como programação, ou operacionais como o cadastramento de informações. Solicite o seu cadastro <a href="{{route('colaboradores.create')}}" title="" class="textos">aqui</a> .</p>
                 </div>
             </div>
         </div>
     </section>
 
+
+    <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Como funciona as classificações?</h4>
+                </div>
+                <div class="modal-body">
+                <p>
+                O SLACS possui uma rotina interna que através de algoritmos de scraping, o site de cada ente público monitorado é avaliado. Nessa rotina, é verificado a seção de Licitações, Contratos e Transparência. De acordo com a disponibilidade de cada informação, é atribuído uma classificação ao ente público. Essa rotina é executada diariamente e as classificações podem mudar.     
+                </p>
+                <h2>1ª Classificação</h2>
+                <p>Municípios que não possuem nenhuma informação referente a contratos.</p>
+                <h2>2ª Classificação</h2>
+                <p>Municípios com informações básicas sobre licitações, mas sem informação referente ao resultado e contratos resultante das mesmas.</p>
+                <h2>3ª Classificação</h2>
+                <p>Municípios com informaçoes sobre licitações, resultados e contratos, porém sem exportação em formato aberto.</p>
+                <h2>4ª Classificação</h2>
+                <p>Municípios com informaçoes sobre licitações, resultados e contratos, e com a possiblidade de exportação em formato aberto.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" data-dismiss="modal" id="btn-cancelar">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- jQuery -->

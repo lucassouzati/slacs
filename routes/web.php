@@ -18,7 +18,9 @@ Route::get('/', function () {
     $qtd['itens'] = \App\ItemContrato::all()->count() + \App\ItemLicitacao::all()->count();
     $qtd['historicos_de_acesso'] = \App\HistoricoDeAcesso::all()->count();
 
-    return view('welcome', compact('qtd'));
+    $entes = \App\Ente::where('ativo', 1)->get();
+    // dd($entes->where('classificacao', 1));
+    return view('welcome', compact('qtd', 'entes'));
 });
 
 

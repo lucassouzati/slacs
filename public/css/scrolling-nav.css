@@ -6,7 +6,7 @@
  @font-face {
 
       font-family: "bionic_type";
-      src: url("../fonts/bionic_type/biotyp.ttf") format("truetype");
+      src: url("../fonts/LLPIXEL3.ttf") format("truetype");
 
       }
 
@@ -107,6 +107,13 @@ of those sections to manage the look and feel of the site. */
     background: linear-gradient(rgb(33, 103, 173), rgba(0,0,0,.3));
 }
 
+.classificacao-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: linear-gradient(rgb(33, 103, 173), rgba(0,0,0,.3));
+}
+
 .about-section {
     height: 100%;
     padding-top: 150px;
@@ -133,5 +140,5 @@ of those sections to manage the look and feel of the site. */
     padding-top: 150px;
     text-align: center;
     /*background: #eee;*/
-    background: linear-gradient(rgb(33, 103, 173), rgba(0,0,0,.3));
+    background: linear-gradient(rgba(0,0,0,.3), rgb(33, 103, 173));
 }
