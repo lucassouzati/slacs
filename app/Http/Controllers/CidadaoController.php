@@ -11,6 +11,7 @@ use App\Licitacao;
 use App\Contrato;
 use App\ItemLicitacao;
 use App\ItemContrato;
+use App\HistoricoDeAcesso;
 use Illuminate\Http\Request;
 use Session;
 use DB;
@@ -432,6 +433,31 @@ class CidadaoController extends Controller
     {
         return view('modulo-cidadao.api');
 
+    }
+
+    public function consultaHistoricosDeAcesso(Request $request)
+    {
+        $filtros = $request->all();
+
+        if(empty($filtros))
+        {
+            $historicos_de_acesso = HistoricoDeAcesso::paginate(50);
+        }
+        else
+        {
+            $historicos_de_acesso = HistoricoDeAcesso::when(isset($filtros['ente_id']), function ($query) use ($filtros) {
+                return $query->where('ente_id', $filtros['ente_id']);
+            })
+            ->when(isset($filtros['data_inicio']), function($query) use ($filtros){
+                return $query->where('data_hora', '>', $filtros['data_inicio']);
+            })
+            ->when(isset($filtros['data_fim']), function($query) use ($filtros){
+                return $query->where('data_hora', '<', $filtros['data_fim']);
+            })
+            ->paginate(50);
+        }
+
+        return view('modulo-cidadao.historicos_de_acesso', compact('historicos_de_acesso'));
     }
 
     public function apiValorTotalContratosPorEnte()

@@ -61,6 +61,7 @@ Route::group(['prefix' => 'consulta'], function(){
 	Route::get('licitacoes', 'CidadaoController@consultaLicitacoes')->name('cidadao.consulta-licitacoes');
 	Route::get('contratos', 'CidadaoController@consultaContratos')->name('cidadao.consulta-contratos');
 	Route::get('estatisticas', 'CidadaoController@consultaEstatisticas')->name('cidadao.consulta-estatisticas');
+	Route::get('monitoramentos', 'CidadaoController@consultaHistoricosDeAcesso')->name('cidadao.historicos_de_acesso');
 	Route::get('api', 'CidadaoController@consultaApi')->name('cidadao.consulta-api');
 
 	Route::get('licitacoes/{id}', 'CidadaoController@mostraLicitacao')->name('cidadao.mostra-licitacao');

@@ -70,6 +70,7 @@
                             <li><a href="{{route('cidadao.consulta-licitacoes')}}" title="Licitações">Licitações</a></li>
                             <li><a href="{{route('cidadao.consulta-contratos')}}" title="Contratos">Contratos</a></li>
                             <li><a href="{{route('cidadao.consulta-estatisticas')}}" title="Estatísticas">Estatísticas</a></li>
+                            <li><a href="{{route('cidadao.historicos_de_acesso')}}" title="Monitoramentos">Monitoramentos</a></li>
                             <li><a href="{{route('cidadao.consulta-api')}}" title="API">API</a></li>
                         </ul>
                     </li>
