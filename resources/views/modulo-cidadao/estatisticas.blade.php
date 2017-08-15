@@ -4,94 +4,6 @@
 
     <div class="container">
         <div class="row">
-            
-             <div class="panel panel-default">
-                    <div class="panel-heading">Filtros</div>
-
-                    {{-- <div class="panel-body">
-                        {!! Form::open(['url' => route('cidadao.consulta-licitacoes'), 'method' => 'GET', 'class' => 'form-horizontal']) !!}
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="ano" class="control-label">Ente Público: </label>
-                                            {!! Form::select('ente_id', \App\Ente::pluck('nome', 'id')->put('', 'Todos'), '', ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="modalidade" class="control-label">Modalidade: </label>
-                                            {!! Form::text('modalidade', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="situacao" class="control-label">Situacao: </label>
-                                            {!! Form::text('situacao', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-
-                                </div>
-                                <div class="col-md-12">
-                                	<div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="ano" class="control-label">Valor Mínimo: </label>
-                                            {!! Form::number('valor_minimo', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="ano" class="control-label">Valor Máximo: </label>
-                                            {!! Form::number('valor_maximo', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="situacao" class="control-label">Critério: </label>
-                                            {!! Form::text('criterio', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="situacao" class="control-label">CNPJ/CPF: </label>
-                                            {!! Form::text('cnpj_cpf', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                	<div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="ano" class="control-label">Objeto: </label>
-                                            {!! Form::text('objeto', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="ano" class="control-label">Que contenham nos itens: </label>
-                                            {!! Form::text('descricao_itens', null, ['class' => 'form-control']) !!}
-                                        </div>    
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-12">
-                                    <div class="col-md-offset-10 col-md-2">
-                                        <div class="form-group">
-                                            {!! Form::submit('Pesquisar', ['class' => 'btn btn-primary']) !!}
-                                        </div>
-                                    </div>
-                                </div>
-                            {!! Form::close() !!}
-                    </div> --}}
-            </div>
-{{-- 
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Valor apurado em Licitação por Ente Público</div>
-                    <div class="panel-body">
-                        
-                    </div>
-
-                </div>
-            </div> --}}
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Valor apurado em Contratos por Ente Público</div>
@@ -106,6 +18,14 @@
                     <div class="panel-heading">10 itens mais caros de cada ente público</div>
                     <div class="panel-body">    
                         <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ano" class="control-label">Ente Público: </label>
+                                        {!! Form::select('ente_id', \App\Ente::pluck('nome', 'id'), '', ['class' => 'form-control', 'onchange' => 'carregaDadosItensMaisCaros(this.value)', 'id' => 'selectItensMaisCaros']) !!}
+                                    </div>    
+                                </div>
+                            </div>
                             <canvas id="chartItensMaisCaros"></canvas>    
                         </div>
                     </div>
@@ -121,7 +41,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="ano" class="control-label">Ente Público: </label>
-                                    {!! Form::select('ente_id', \App\Ente::pluck('nome', 'id'), '', ['class' => 'form-control', 'onchange' => 'carregaDadosHistoricoDeAcesso(this.value)']) !!}
+                                    {!! Form::select('ente_id', \App\Ente::pluck('nome', 'id'), '', ['class' => 'form-control', 'onchange' => 'carregaDadosHistoricoDeAcesso(this.value)', 'id' => 'selectHistoricoDeAcesso']) !!}
                                 </div>    
                             </div>
                         </div>
@@ -151,19 +71,19 @@
     data['datasets']=[];
     data['datasets'][0]={
         data: [],
-        backgroundColor: [],
-        // label: [],
+        backgroundColor: getRandomColor(),
+        // labels: [],
         // borderColor: "rgba(0,0,0,0)",
         label: 'Total do Ente',
-        borderWidth: [],
+        borderWidth: 1,
     };
     for (i=0;i<dados.length;i++){
         el=dados[i];
         data['labels'][i]=el.nome;
-        data['datasets'][0].label[i]=el.nome;
-        // data['datasets'][0].data[i]=el.total;
-        data['datasets'][0].backgroundColor[i]=getRandomColor();
-        data['datasets'][0].borderWidth[i]=1;
+        // data['datasets'][0].labels[i]=el.nome;
+        data['datasets'][0].data[i]=el.total;
+        // data['datasets'][0].backgroundColor[i]=getRandomColor();
+        // data['datasets'][0].borderWidth[i]=1;
     }
     console.log(data);
     var chartContratos = document.getElementById("chartContratos");
@@ -207,16 +127,6 @@
             backgroundColor: getRandomColor(),
             data: [dados[0].licitacoes, dados[0].contratos, dados[0].transparencia]
         }
-        // {
-        //     label: 'Contratos',
-        //     backgroundColor: getRandomColor(),
-        //     data: [dados[0].contratos]
-        // },
-        // {
-        //     label: 'Transparência',
-        //     backgroundColor: getRandomColor(),
-        //     data: [dados[0].transparencia]
-        // }
         ]
     }
     console.log(data);
@@ -234,19 +144,20 @@
     data['datasets']=[];
     data['datasets'][0]={
         data: [],
-        backgroundColor: [],
+        // backgroundColor: [],
+        backgroundColor: getRandomColor(),
         // label: [],
         // borderColor: "rgba(0,0,0,0)",
         label: 'Preço Unitário do Item',
-        borderWidth: [],
+        // borderWidth: [],
     };
     for (i=0;i<dados.length;i++){
         el=dados[i];
         data['labels'][i]=el.descricao;
         // data['datasets'][0].label[i]=el.descricao;
         data['datasets'][0].data[i]=el.valor;
-        data['datasets'][0].backgroundColor[i]=getRandomColor();
-        data['datasets'][0].borderWidth[i]=1;
+        // data['datasets'][0].backgroundColor[i]=getRandomColor();
+        // data['datasets'][0].borderWidth[i]=1;
     }
 // var data=[];
 //     // data['labels']=[];
@@ -303,8 +214,16 @@
     }
     });
 
+    
+    carregaDadosItensMaisCaros($('#selectItensMaisCaros').val());
+    carregaDadosHistoricoDeAcesso($('#selectHistoricoDeAcesso').val());    
+
+}
+
+function carregaDadosItensMaisCaros(ente_id)
+{
     $.ajax({
-    url: '{{route('cidadao.api-contratos-itens-mais-caros', 1)}}',
+    url: '{{url('api/contratos/itens/maiscaros')}}/'+ente_id,
     success: function (data) {
         // faça o tratamento dos dados e atualize
         // as variáveis dos gráficos.
@@ -314,10 +233,7 @@
         geraGraficoItensMaisCaros(dataBar);
     }
     });
-
-    carregaDadosHistoricoDeAcesso(1);    
 }
-
 function carregaDadosHistoricoDeAcesso(ente_id){
     $.ajax({
     url: '{{url('api/historicos_de_acesso_por_ente')}}/'+ente_id,
