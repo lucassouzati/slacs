@@ -117,7 +117,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Quantidade de acessos bem sucedidos de cada ente público</div>
                     <div class="panel-body">
-                        
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ano" class="control-label">Ente Público: </label>
+                                    {!! Form::select('ente_id', \App\Ente::pluck('nome', 'id'), '', ['class' => 'form-control', 'onchange' => 'carregaDadosHistoricoDeAcesso(this.value)']) !!}
+                                </div>    
+                            </div>
+                        </div>
+                        <canvas id="chartHistoricoDeAcesso" width="400" height="200"></canvas>    
                     </div>
 
                 </div>
@@ -159,6 +167,60 @@
     }
     console.log(data);
     var chartContratos = document.getElementById("chartContratos");
+    var dadosContratos = new Chart(chartContratos, {
+        type: 'bar',
+        data: data
+    });
+ }
+
+ function geraGraicoHistoricoDeAcesso(dados){
+    console.log(dados);
+    console.log(dados[0].licitacoes);
+    console.log(dados[0].contratos);
+    console.log(dados[0].transparencia);
+
+    var data=[];
+    // data['labels']=[];
+    // data['datasets']=[];
+    // data['datasets'][0]={
+    //     data: [],
+    //     backgroundColor: [],
+    //     // label: [],
+    //     // borderColor: "rgba(0,0,0,0)",
+    //     label: 'Total de Acesso',
+    //     borderWidth: [],
+    // };
+    // for (i=0;i<dados.length;i++){
+    //     el=dados[i];
+    //     data['labels'][i]=el.nome;
+    //     data['datasets'][0].label[i]=el.nome;
+    //     // data['datasets'][0].data[i]=el.total;
+    //     data['datasets'][0].backgroundColor[i]=getRandomColor();
+    //     data['datasets'][0].borderWidth[i]=1;
+    // }
+
+    data = {
+        labels: ['Licitações', 'Contratos', 'Transparência'],
+        datasets: [
+        {
+            label: 'Total de acessos bem sucedidos por ente público',
+            backgroundColor: getRandomColor(),
+            data: [dados[0].licitacoes, dados[0].contratos, dados[0].transparencia]
+        }
+        // {
+        //     label: 'Contratos',
+        //     backgroundColor: getRandomColor(),
+        //     data: [dados[0].contratos]
+        // },
+        // {
+        //     label: 'Transparência',
+        //     backgroundColor: getRandomColor(),
+        //     data: [dados[0].transparencia]
+        // }
+        ]
+    }
+    console.log(data);
+    var chartContratos = document.getElementById("chartHistoricoDeAcesso");
     var dadosContratos = new Chart(chartContratos, {
         type: 'bar',
         data: data
@@ -250,6 +312,22 @@
         dataBar = data;
 
         geraGraficoItensMaisCaros(dataBar);
+    }
+    });
+
+    carregaDadosHistoricoDeAcesso(1);    
+}
+
+function carregaDadosHistoricoDeAcesso(ente_id){
+    $.ajax({
+    url: '{{url('api/historicos_de_acesso_por_ente')}}/'+ente_id,
+    success: function (data) {
+        // faça o tratamento dos dados e atualize
+        // as variáveis dos gráficos.
+
+        dataBar = data;
+
+        geraGraicoHistoricoDeAcesso(dataBar);
     }
     });
 }

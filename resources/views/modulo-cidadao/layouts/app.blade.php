@@ -69,7 +69,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{route('cidadao.consulta-licitacoes')}}" title="Licitações">Licitações</a></li>
                             <li><a href="{{route('cidadao.consulta-contratos')}}" title="Contratos">Contratos</a></li>
-                            <li><a href="" title="Estatísticas">Estatísticas</a></li>
+                            <li><a href="{{route('cidadao.consulta-estatisticas')}}" title="Estatísticas">Estatísticas</a></li>
                         </ul>
                     </li>
                 </ul>

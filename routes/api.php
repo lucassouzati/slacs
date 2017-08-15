@@ -20,6 +20,7 @@ Route::get('licitacoes', 'CidadaoController@apiLicitacoes')->name('cidadao.api-l
 Route::get('contratos', 'CidadaoController@apiContratos')->name('cidadao.api-contratos');
 Route::get('contratos/total/porente', 'CidadaoController@apiValorTotalContratosPorEnte')->name('cidadao.api-contratos-total-por-ente');
 Route::get('contratos/itens/maiscaros/{ente_id}', 'CidadaoController@apiItensMaisCaros')->name('cidadao.api-contratos-itens-mais-caros');
+Route::get('historicos_de_acesso_por_ente/{ente_id}', 'CidadaoController@apiHistoricoDeAcessoPorEnte')->name('cidadao.api-historico-de-acesso-por-ente');
 
 Route::get('licitacoes/{id}/itens', 'CidadaoController@apiItensDaLicitacao')->name('cidadao.api-itens_licitacao');
 Route::get('contratos/itens/{id?}', 'CidadaoController@apiItensDoContrato')->name('cidadao.api-itens_contrato');

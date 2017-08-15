@@ -458,4 +458,17 @@ class CidadaoController extends Controller
         ->limit(10)
         ->get();
     }
+
+    public function apiHistoricoDeAcessoPorEnte($ente_id)
+    {
+        return DB::table('historico_de_acesso')
+        ->select(DB::raw('sum(licitacoes) as licitacoes, sum(contratos) as  contratos, sum(transparencia) as transparencia, entes.id, entes.nome'))
+        ->join('entes', function($join) use ($ente_id){
+            $join->on('historico_de_acesso.ente_id', '=', 'entes.id')
+            ->where('entes.id', $ente_id);
+        })
+        ->groupBy('entes.id')
+        ->groupBy('entes.nome')
+        ->get();
+    }
 }
