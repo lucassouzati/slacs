@@ -8,7 +8,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Licitaco {{ $licitacao->id }}</div>
                     <div class="panel-body">
-
+                        <a href="{{ route('contestacao.create', ['tipo' => 'licitacao', 'id' => $licitacao->id ]) }}" title="Voltar"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Contestar</button></a>
+                        <br>
+                        <br>
                         
 
                         <div class="table-responsive">

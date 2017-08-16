@@ -17,11 +17,14 @@ class CheckIfCidadaoAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // dd("teste");
         $auth=Auth::guard('cidadao');
-        if (!$auth->check() && !Auth::check()) {
+
+        if (!$auth->check()) {
+            // dd("teste");
             return redirect('/cidadao/login');
         }
-
+        // dd("teste");
         return $next($request);
     }
 }

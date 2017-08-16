@@ -8,8 +8,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Contrato {{ $contrato->id }}</div>
                     <div class="panel-body">
-
-                        
+                    <div class="form-group">
+                        <a href="{{ route('contestacao.create', ['tipo' => 'contrato', 'id' => $contrato->id ]) }}" title="Voltar"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Contestar</button></a>
+                    </div>
 
                         <div class="table-responsive">
                             <table class="table table-borderless">

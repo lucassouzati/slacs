@@ -28,6 +28,8 @@ class HomeController extends Controller
         $dados['qtd_licitacoes'] = \App\Licitacao::all()->count();
         $dados['qtd_contratos'] = \App\Contrato::all()->count();
 
-        return view('home', compact('dados'));
+        $contestacoes = \App\Contestacao::orderBy('status')->paginate(20);
+
+        return view('home', compact('dados', 'contestacoes'));
     }
 }

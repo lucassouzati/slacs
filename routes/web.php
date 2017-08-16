@@ -59,6 +59,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('historicos_de_acesso/importar', 'HistoricoDeAcessoController@importar')->name('historicos_de_acesso.importar');
 
 	// Route::get('configuracoes', 'ConfiguracoesController@lista')
+	Route::get('contestacao', 'ContestacaoController@index')->name('contestacao.index');
+	Route::get('contestacao/{id}/responder', 'ContestacaoController@formResposta')->name('contestacao.responder');
+	Route::post('contestacao/{id}/responder', 'ContestacaoController@postResposta')->name('contestacao.postResponder');
 });
 
 Auth::routes();
@@ -79,7 +82,12 @@ Route::group(['prefix' => 'consulta'], function(){
 
 
 
-
+// Route::resource('contestacao', 'ContestacaoController');
+Route::group(['middleware' => 'auth.cidadao'], function() {
+	Route::get('/contestacao/create/{tipo}/{i}', 'ContestacaoController@create')->name('contestacao.create');
+	Route::post('/contestacao/{tipo}/{id}', 'ContestacaoController@store')->name('contestacao.store');	
+	Route::get('cidadao/home', 'Cidadao\HomeController@index')->name('cidadao.home');
+});
 // Route::get('cidadao/login', 'CidadaoController@formLogin')->name('cidadao.formLogin');
 Route::group(['namespace' => 'Cidadao', 'prefix' => 'cidadao'], function () {
     Route::get('/', 'Auth\LoginController@showLoginForm');
@@ -91,9 +99,11 @@ Route::group(['namespace' => 'Cidadao', 'prefix' => 'cidadao'], function () {
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('cidadao.formRegister');
     Route::post('register', 'Auth\RegisterController@register')->name('cidadao.register');
-    Route::get('home', 'HomeController@index')->name('cidadao.home');
+    
 
 
 });
 
-Route::resource('cidadao', 'CidadaoController');
+
+
+// Route::resource('cidadao', 'CidadaoController');

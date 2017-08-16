@@ -33,4 +33,9 @@ class Cidadao extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function contestacoes()
+    {
+        return $this->hasMany('App\Contestacao');
+    }
 }
