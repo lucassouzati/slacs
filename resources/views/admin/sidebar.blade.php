@@ -56,7 +56,7 @@
                 </li>
                 <li>
 
-                    <a href="#">
+                    <a href="{{route('configuracao.edit')}}">
                         Configurações
                     </a>
                 </li>

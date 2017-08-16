@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::resource('colaboradores', 'ColaboradoresController', ['except' => ['create', 'store']]);
 		Route::get('colaboradores/{id}/mudastatus/{ativo}', 'ColaboradoresController@mudaStatus')->name('colaboradores.mudaStatus');
 		Route::get('colaboradores/{id}/aprovacaodocadastro/{aprovacao_cadastro}', 'ColaboradoresController@aprovacaoCadastro')->name('colaboradores.aprovacao_cadastro');
+
+		Route::get('configuracao', 'ConfiguracaoController@edit')->name('configuracao.edit');
+		Route::post('configuracao', 'ConfiguracaoController@update')->name('configuracao.update');
 	});
 	
 
