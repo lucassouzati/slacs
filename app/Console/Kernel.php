@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Ente;
 use App\HistoricoDeAcesso;
 use GuzzleHttp\Client;
+use DB;
 
 class Kernel extends ConsoleKernel
 {
