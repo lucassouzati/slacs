@@ -29,22 +29,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $configuracao = DB::table('configuracao')->first();
+        // $configuracao = DB::table('configuracao')->first();
 
-        if($configuracao->frequencia == 'Diária')
-        {
-            $schedule->call(function (){
-                Ente::importar();
-                HistoricoDeAcesso::importar();
-            })->dailyAt($configuracao->horario);    
-        }
-        else
-        {
-            $schedule->call(function (){
-                Ente::importar();
-                HistoricoDeAcesso::importar();
-            })->weekly()->fridays()->at($configuracao->horario);    
-        }
+        // if($configuracao->frequencia == 'Diária')
+        // {
+        //     $schedule->call(function (){
+        //         Ente::importar();
+        //         HistoricoDeAcesso::importar();
+        //     })->dailyAt($configuracao->horario);    
+        // }
+        // else
+        // {
+        //     $schedule->call(function (){
+        //         Ente::importar();
+        //         HistoricoDeAcesso::importar();
+        //     })->weekly()->fridays()->at($configuracao->horario);    
+        // }
         
     }
 
