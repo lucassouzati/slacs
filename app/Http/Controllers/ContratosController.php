@@ -274,7 +274,7 @@ class ContratosController extends Controller
             'class'=>"alert-success"
             ]);
 
-            return redirect('home');
+            return redirect()->back();
         }
 
     }

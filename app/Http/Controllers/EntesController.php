@@ -170,7 +170,7 @@ class EntesController extends Controller
         // dd($client);
     }
 
-    public function importaEntes()
+    public function importar()
     {
         try{
             $client = new Client();

@@ -159,40 +159,6 @@
         // data['datasets'][0].backgroundColor[i]=getRandomColor();
         // data['datasets'][0].borderWidth[i]=1;
     }
-// var data=[];
-//     // data['labels']=[];
-//     // data['datasets']=[];
-//     for (i=0;i<dados.length;i++){
-//         el=dados[i];
-        
-//         data[i]=[];
-
-//         data[i]['labels'] = el.descricao;
-//         data[i]['datasets']=[{
-//             data: [el.valor],
-//             backgroundColor: getRandomColor(),
-//             label: el.descricao,
-//             // labels: el.descricao,
-//             // labels: [],
-//             // borderColor: "rgba(0,0,0,0)",
-//             // label: 'Preço Unitário do Item',
-//             // borderWidth: [],
-//         }];
-//     }
-//     // for (i=0;i<dados.length;i++){
-//     //     el=dados[i];
-//     //     data['labels'][i]=el.descricao;
-//     //     // data['datasets'][0].label[i]=el.descricao;
-//     //     data['datasets'][0].data[i]=el.valor;
-//     //     data['datasets'][0].backgroundColor[i]=getRandomColor();
-//     //     data['datasets'][0].borderWidth[i]=1;
-//     // }
-//     console.log(data);
-//     var chartItensMaisCaros = document.getElementById("chartItensMaisCaros");
-//     var dadosItens = new Chart(chartItensMaisCaros, {
-//         type: 'bar',
-//         data: data
-//     });
 
     console.log(data);
     var chartItensMaisCaros = document.getElementById("chartItensMaisCaros");

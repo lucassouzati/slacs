@@ -53,9 +53,9 @@ class Contestacao extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function setDataAttribute($value)
-    {   
-        if(!is_array($value) && isset($value) && $value != '')
-            $this->attributes['data'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
-    }
+    // public function setDataAttribute($value)
+    // {   
+    //     if(!is_array($value) && isset($value) && $value != '')
+    //         $this->attributes['data'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+    // }
 }
